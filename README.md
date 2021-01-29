@@ -13,7 +13,7 @@ if __name__ == '__main__':
    
    
    
-QWidget 小部件是pyside2中所有用户界面对象的基类。默认构造函数没有父类，没有父类口小部件称为窗口。
+QWidgets 小部件是pyside2中所有用户界面对象的基类。默认构造函数没有父类，没有父类口小部件称为窗口。
 
 resize() 调整窗口小部件的大小
 
@@ -69,11 +69,8 @@ QMessageBox.about(self, '看结果','猜大了!')就是弹出一个对话框，�
 QMessageBox.question(self, '确认', '确认退出吗', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)  第一个字符串出现在标题栏上。 第二个字符串是对话框显示的消息文本。 第三个参数指定出现在对话框中的按钮的组合。 最后一个参数是默认按钮。 它是初始键盘焦点的按钮。 返回值存储在答复变量中。
 
 
-QtGui.QLCDNumber(self) 窗口上设置一个LCD屏
-QtGui.QDial(self)       窗口上设置一个轮盘
-dial.valueChanged.connect(lcd.display)  这里我们将QDial这个小部件的一个valueChanged信号连接到lcd数字的显示槽。
 
-QDial对象发送信号。 QLCDNumber接收信号的。 槽是对信号作出反应的方法。
+
 
 
 事件与信号处理
@@ -81,6 +78,18 @@ QDial对象发送信号。 QLCDNumber接收信号的。 槽是对信号作出反
 1.事件来源    是状态更改的对象，他会生成事件。
 2.事件对象    将状态更改封装在事件源中
 3.事件目标    是要通知的对象
+
+QtGui.QLCDNumber(self) 窗口上设置一个LCD屏
+QtGui.QDial(self)       窗口上设置一个轮盘
+dial.valueChanged.connect(lcd.display)  这里我们将QDial这个小部件的一个valueChanged信号连接到lcd数字的显示槽。
+QDial对象发送信号。 QLCDNumber接收信号的。 槽是对信号作出反应的方法。
+
+
+事件处理重写
+self.setMouseTracking(True)   启动鼠标跟踪
+
+当鼠标滑动时，事件发生启动
+def mouseMoveEvent(self, event):
 
 
 事件发送者信号
@@ -123,6 +132,7 @@ self.s = Signal()
    事件与信号处理
    
 计划学习时间5天
+达成目标:可以设置窗口小部件，给窗口小部件设置图标，添加按钮，触发事件处理
 
 中级部分 
 1、python的中级学习
@@ -141,7 +151,8 @@ self.s = Signal()
    标签
    文本输入栏
    纯文本输入框
-计划学习时间7天
+计划学习时间8天
+达成目标：可以写出一个类似QQ一样的操作界面
    
    
 高级部分
@@ -162,4 +173,7 @@ self.s = Signal()
    与数据库互联
    局域网小工具
    Graphics View
-计划学习18天
+计划学习20天
+达成目标：可以写出一个类似局域网聊天工具和diy一个浏览器
+终极目标：实现一个类似野火的操作界面
+
