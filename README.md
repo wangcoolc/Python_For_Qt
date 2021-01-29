@@ -64,7 +64,7 @@ self.text.setGeometry(80, 50, 150 ,30)   设置文本框的大小
 
 
 
-QMessageBox.about(self, '看结果','猜大了!')就是弹出一个对话框，告诉你结果是什么样的。  第一个参数是self，第二个是弹出对话框的标题，第三个是对话框弹出的内容
+QMessageBox.about(self, '看结果','猜大了!')就是弹出一个对话框，告诉你结果是什么样的。  第一个参数是 PySide2.QtWidgets.QWidget（self），第二个是弹出对话框的标题，第三个是对话框弹出的内容
 
 QMessageBox.question(self, '确认', '确认退出吗', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)  第一个字符串出现在标题栏上。 第二个字符串是对话框显示的消息文本。 第三个参数指定出现在对话框中的按钮的组合。 最后一个参数是默认按钮。 它是初始键盘焦点的按钮。 返回值存储在答复变量中。
 
@@ -83,6 +83,17 @@ QDial对象发送信号。 QLCDNumber接收信号的。 槽是对信号作出反
 3.事件目标    是要通知的对象
 
 
+事件发送者信号
+窗口小部件发送信号： sender()
+bt1 = QPushButton('xx',self)
+bt1.clicked.connect(self.函数)
+
+def 函数():
+    sender = self.sender()
+	sender.text() == 'xx' (可以检测哪个按钮被按下)
+  
+
+
 自定义信号： from PyQt5.QtCore import (Signal, QObject)
 class Signal(QObject):
     showmouse = Signal()
@@ -92,4 +103,63 @@ self.s = Signal()
 		
    def about(self):
         QMessageBox.about(self,'鼠标','你点鼠标了吧！')
+		
+		
+		
 
+学习计划：
+基础部分学习
+1、python的基本语法
+   数据类型
+   字符串和编码
+   条件判断
+   循环
+   函数
+2、pyside2基础学习
+   开发环境搭建
+   widget窗口小组件
+   button按钮部件
+   Icon窗口标题
+   事件与信号处理
+   
+计划学习时间5天
+
+中级部分 
+1、python的中级学习
+   python特性
+   函数编程
+   模块
+   面向对象
+   面向高级对象
+2、Pyside2中级学习
+   布局
+   界面搭建
+   标准输入对话框
+   进度对话框
+   复选框
+   单选按钮
+   标签
+   文本输入栏
+   纯文本输入框
+计划学习时间7天
+   
+   
+高级部分
+1、python高级学习
+   io编程
+   进程和线程
+   常用内建模块
+   图形界面
+   网络编程
+   访问数据库
+2、pyside2高级学习
+   QListView高级部件
+   QTreeWidget部件
+   QTabWidget部件
+   QTableWidget部件
+   QTimer与QThread的综合应用
+   Web页面交互初探
+   与数据库互联
+   局域网小工具
+   Graphics View
+计划学习18天
