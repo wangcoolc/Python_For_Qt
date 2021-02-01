@@ -11,6 +11,43 @@ if __name__ == '__main__':
     
    如果写了这句话并将执行的语句放到这个判断语句的后面，那么只有程序本身被执行的时候才能运行这个判断语句下面的语句。
    否则程序被作为模块导入的时候就会被执行。
+   
+range()函数：用法1：只有一个参数，表示从0到这个参数内的所有整数，不包括参数
+            用法2：两个参数，第一个表示左边界，第二个表示右边界，range表示从左边界到右边界的所有整数，左闭右开
+            用法3：三个参数，第一个表示左边界，第二个表示右边界，第三个表示步长step，即两个整数之间相差的数，左闭右开。
+   range(start, stop[, step])
+   参数说明：
+       start 计数从start开始。默认是从0开始
+       stop[  计数到stop结束，但是不包括stop
+       step]  步长，默认为1
+     
+高级特征：   
+   切片操作符(Slice):
+        L[0:3]
+	
+	
+	迭代 ：如果给定一个list或者tuple，我们可以通过for循环来遍历这个list或tuple，这种遍历成为迭代
+	for key in d:
+	如何判断一个对象是迭代对象：
+	from collections import Iterable
+	>>> isinstance('abc', Iterable) # str是否可迭代
+        True
+	
+	
+	列表生成式：可以用来创建list的生成式
+	>>> [x * x for x in range(1, 11)]
+	[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+	
+	for循环后面还可以加上if判断，这样我们就可以筛选出仅偶数的平方：
+	>>> [x * x for x in range(1, 11) if x % 2 == 0]
+	[4, 16, 36, 64, 100]
+	
+	还可以使用两层循环，可以生成全排列：
+	>>> [m + n for m in 'ABC' for n in 'XYZ']
+	['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
+	
+	生成器：这种一边循环一边计算的机制，称为生成器：generator。
+	       第一种方法很简单，只要把一个列表生成式的[]改成()，就创建了一个generator。
 ```  
    
    
@@ -120,7 +157,32 @@ self.s = Signal()
    def about(self):
         QMessageBox.about(self,'鼠标','你点鼠标了吧！')
 ```		
-		
+
+## 布局
+### 箱式布局
+    
+    QHBoxLayout和QVBoxLayout是基本的布局类
+	
+	hbox = QHBoxLayout() 创建一个水平框布局
+	hbox.addStretch(1)    创建一个拉伸因子  （就是两个框之间的距离） 这个拉伸在三个按钮之前增加了一个可伸缩的空间。这将把它们推到窗口的右边。
+
+ 
+	vbox = QVBoxLayout()   水平放置在垂直布局中。
+	vbox = addStretch(1)   垂直框中的拉伸因子将按钮的水平框推到窗口的底部
+        vbox.addLayout(hbox)   水平布局放置在垂直布局中  
+   
+	self.setLayout(vbox)   设置窗口的主要布局
+	
+        addStretch函数的作用是在布局器中增加一个伸缩量
+	
+	
+### 格栅布局
+	QGridLayout   也称为网格布局(多行多列)
+                      将提供给它的空间划分成行和列，并在每个窗口部件插入并管理到正确的单元格 
+				  
+				  
+### 表单布局
+	QFormLayout  管理输入型控件和关联的标签组成的那些Form表单
 		
 
 # 学习计划：
