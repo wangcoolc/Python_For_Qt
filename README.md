@@ -183,7 +183,57 @@ self.s = Signal()
 				  
 ### 表单布局
 	QFormLayout  管理输入型控件和关联的标签组成的那些Form表单
-		
+	
+# 界面搭建
+      QMainWindow类提供了一个主应用程序窗口。 这使得能够创建具有状态栏，工具栏和菜单栏的经典应用程序框架。
+## 状态栏
+      要获取状态栏，我们需要调用QWidget.QMainWindow类的statusBar()方法
+      该方法的第一个调用创建一个状态栏，后续调用返回状态栏对象。
+      showMessage() 在状态栏上显示一条消息
+## 菜单
+```python
+	    exitAct = QAction(QIcon('exit.png'), '退出(&E)', self)
+	    exitAct.setShortcut('Ctrl+Q')
+	    exitAct.setStatusTip('退出程序')
+``` 
+	    QAction是使用菜单栏，工具栏或自定义键盘快捷方式执行操作的抽象。
+	    创建一个具有特定图标和”退出“标签的动作
+	
+	    exitAct.triggered.connect(qApp.quit)
+	    当我们选择这个特定的动作时，发出触发信号，信号连接到QApplication小部件的quit()方法。 这终止了应用程序。
+```python	
+	    menubar = self.menuBar()
+	    fileMenu = menubar.addMenu('文件(&F)')
+	    fileMenu.addAction(exitAct)
+``` 		
+	    menuBar()方法创建一个菜单栏。我们使用addMenu()创建文件菜单，并使用addAction()添加操作。
+            &”这个符号，增加这个符号后，当我们按住”Alt+F“的时候就能快速打开文件这个菜单
+
+## 子菜单
+	    使用QMenu创建新菜单
+```python
+	    saveMenu = QMenu('保存方式(&S)', self)
+	    saveAct = QAction(QIcon('save.png'),'保存...', self)
+	    saveAct.setShortcut('Ctrl+S')
+	    saveAct.setStatusTip('保存文件')
+	    saveasAct = QAction(QIcon('saveas.png'),'另存为...(&O)', self)
+	    saveasAct.setStatusTip('文件另存为')
+	    saveMenu.addAction(saveAct)
+	    saveMenu.addAction(saveasAct)
+```	    
+	    使用addAction()被添加到子菜单中
+## 上下文菜单
+```python
+       def contextMenuEvent(self, event):
+       cmenu = QMenu(self)
+       newAct = cmenu.addAction("新建")
+       opnAct = cmenu.addAction("保存")
+       quitAct = cmenu.addAction("退出")
+       action = cmenu.exec_(self.mapToGlobal(event.pos()))
+       if action == quitAct:
+           qApp.quit()
+```
+	   重新实现contextMenuEvent()方法，使用exec_()方法显示上下文菜单。 从事件对象获取鼠标指针的坐标。 mapToGlobal()方法将窗口小部件坐标转换为全局屏幕坐标。
 
 # 学习计划：
 ### 时间1月26日-1月29日
