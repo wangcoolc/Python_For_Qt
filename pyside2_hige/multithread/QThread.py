@@ -4,7 +4,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class Example(QtWidget):
+class Example(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
@@ -25,15 +25,15 @@ class Example(QtWidget):
 
         self.show()
 
-        def slotAdd(self,file_inf):
-            self.listFile.addItem(file_inf)
+    def slotAdd(self,file_inf):
+        self.listFile.addItem(file_inf)
 
-        def slotStart(self):
-            self.btstart.setEnabled(False)
-            self.Thread.start()
+    def slotStart(self):
+        self.btstart.setEnabled(False)
+        self.thread.start()
 
 class Worker(QThread):
-    sinOut = pyqtSignal(str)
+    sinOut = Signal(str)
 
     def __init__(self):
         super().__init__()
