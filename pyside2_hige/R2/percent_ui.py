@@ -4,6 +4,127 @@ from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 
+
+
+class Setbutton(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+    
+    def initUI(self):
+
+        Vlayout = QVBoxLayout()
+        # Camera
+        self.camera = QWidget()
+        self.layout1 = QHBoxLayout()
+        self.label1 = QLabel("Camera:")
+        self.layout1.addWidget(self.label1)
+        self.but1 = QRadioButton("Enabled")
+        self.but1.setChecked(True)
+        self.but1.toggled.connect(lambda:self.btnstate(self.but1))
+        self.layout1.addWidget(self.but1)
+        self.but2 = QRadioButton("Disabled")
+        self.but2.toggled.connect(lambda:self.btnstate(self.but2))
+        self.layout1.addWidget(self.but2)
+        self.camera.setLayout(self.layout1)
+
+        # SSH
+        self.ssh = QWidget()
+        self.layout2 = QHBoxLayout()
+        self.label2 = QLabel("SSH:")
+        self.layout2.addWidget(self.label2)
+        self.but3 = QRadioButton("Enabled")
+        self.but3.setChecked(True)
+        self.but3.toggled.connect(lambda:self.btnstate(self.but3))
+        self.layout2.addWidget(self.but3)
+        self.but4 = QRadioButton("Disabled")
+        self.but4.toggled.connect(lambda:self.btnstate(self.but4))
+        self.layout2.addWidget(self.but4)
+        self.ssh.setLayout(self.layout2)
+
+        # VNC
+        self.vnc = QWidget()
+        self.layout3 = QHBoxLayout()
+        self.label3 = QLabel("VNC:")
+        self.layout3.addWidget(self.label3)
+        self.but5 = QRadioButton("Enabled")
+        self.but5.setChecked(True)
+        self.but5.toggled.connect(lambda:self.btnstate(self.but5))
+        self.layout3.addWidget(self.but5)
+        self.but6 = QRadioButton("Disabled")
+        self.but6.toggled.connect(lambda:self.btnstate(self.but6))
+        self.layout3.addWidget(self.but6)
+        self.vnc.setLayout(self.layout3)
+
+        # SPI
+        self.spi = QWidget()
+        self.layout4 = QHBoxLayout()
+        self.label4 = QLabel("SPI:")
+        self.layout4.addWidget(self.label4)
+        self.but7 = QRadioButton("Enabled")
+        self.but7.setChecked(True)
+        self.but7.toggled.connect(lambda:self.btnstate(self.but7))
+        self.layout4.addWidget(self.but7)
+        self.but8 = QRadioButton("Disabled")
+        self.but8.toggled.connect(lambda:self.btnstate(self.but8))
+        self.layout4.addWidget(self.but8)
+        self.spi.setLayout(self.layout4)
+
+        # I2C
+        self.i2c = QWidget()
+        self.layout5 = QHBoxLayout()
+        self.label5 = QLabel("I2C:")
+        self.layout5.addWidget(self.label5)
+        self.but9 = QRadioButton("Enabled")
+        self.but9.setChecked(True)
+        self.but9.toggled.connect(lambda:self.btnstate(self.but9))
+        self.layout5.addWidget(self.but9)
+        self.but10 = QRadioButton("Disabled")
+        self.but10.toggled.connect(lambda:self.btnstate(self.but10))
+        self.layout5.addWidget(self.but10)
+        self.i2c.setLayout(self.layout5)
+
+        # Serial
+        self.serial = QWidget()
+        self.layout6 = QHBoxLayout()
+        self.label6 = QLabel("Serial:")
+        self.layout6.addWidget(self.label6)
+        self.but11 = QRadioButton("Enabled")
+        self.but11.setChecked(True)
+        self.but11.toggled.connect(lambda:self.btnstate(self.but11))
+        self.layout6.addWidget(self.but11)
+        self.but12 = QRadioButton("Disabled")
+        self.but12.toggled.connect(lambda:self.btnstate(self.but12))
+        self.layout6.addWidget(self.but12)
+        self.serial.setLayout(self.layout6)
+
+        # LCD Backlight
+
+        Vlayout.addWidget(self.camera)
+        Vlayout.addWidget(self.ssh)
+        Vlayout.addWidget(self.vnc)
+        Vlayout.addWidget(self.spi)
+        Vlayout.addWidget(self.i2c)
+        Vlayout.addWidget(self.serial)
+
+        self.setLayout(Vlayout)
+
+   
+
+    def btnstate(self,bt):
+        if bt.text() == "Enabled":
+            if bt.isChecked() == True:
+                print(bt.text() + "is selected")
+            else:
+                print(bt.text() + "is deselected")
+        
+        if bt.text() == "Disabled":
+            if bt.isChecked() == True:
+                print(bt.text() + "is selected")
+            else:
+                print(bt.text() + "is deselected")
+
+
 class Percent(QWidget):
 
     MinValue = 0
@@ -212,12 +333,15 @@ class Window(QWidget):
         self._widgets[2].Value = val
         self._widgets[2].update()
 
-class mianwindow(QWidget):
+class mianwindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.initUI()
 
     def initUI(self):
+        
+        self.setGeometry(300,300,500,500)
+
         layout = QVBoxLayout()
         button1 = QPushButton()
         button1.setIcon(QIcon('1.png'))
@@ -226,7 +350,7 @@ class mianwindow(QWidget):
         button2 = QPushButton()
         button2.setIcon(QIcon('2.png'))
         layout.addWidget(button2)
-        button2.clicked.connect(self.myshow)
+        button2.clicked.connect(self.myshow2)
 
         button3 = QPushButton()
         button3.setIcon(QIcon('3.png'))
@@ -239,20 +363,46 @@ class mianwindow(QWidget):
         button5 = QPushButton()
         button5.setIcon(QIcon('5.png'))
         layout.addWidget(button5)
+        button5.clicked.connect(self.myshow5)
 
-        self.setLayout(layout)
+        self.main_frame = QWidget()
+        self.main_frame.setLayout(layout)
 
-    def myshow(self):
-        ex = Window()
-        ex.show()
+        
+        self.items = QDockWidget(self)
+        self.items.setStyleSheet('''background-color:black;''')
+        self.items.setWidget(self.main_frame)
+        self.items.setFloating(False)
+        # self.items.setAllowedAreas(Qt.NoDockWidgetArea)
+
+        #去除容器的标题
+        lTitleBar = self.items.titleBarWidget()
+        lEmptyWidget = QWidget()
+        self.items.setTitleBarWidget(lEmptyWidget)
+        # delete lTitleBar
+
+        self.addDockWidget(Qt.LeftDockWidgetArea,self.items)
+
+        self.ex = Window()
+        self.setCentralWidget(self.ex)    
+        self.ex.show()
+        
+    def myshow2(self):
+        self.ex = Window()
+        self.setCentralWidget(self.ex)    
+        self.ex.show()
+
+    def myshow5(self):
+        self.set = Setbutton()
+        self.setCentralWidget(self.set)
+        self.set.show()
+
 
 
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    # w = mianwindow()
-    # w.show()
-    ex = Window()
-    ex.show()
+    w = mianwindow()
+    w.show()
     app.exec_()
