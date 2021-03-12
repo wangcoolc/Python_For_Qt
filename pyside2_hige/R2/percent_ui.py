@@ -1,8 +1,9 @@
-import sys, random
+import sys, random, time
 import cgitb
 from PySide2.QtWidgets import *
 from PySide2.QtCore import *
 from PySide2.QtGui import *
+from PySide2.QtCharts import *
 
 
 
@@ -125,6 +126,65 @@ class Setbutton(QWidget):
                 print(bt.text() + "is deselected")
 
 
+class SplineChart(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+
+        self.chartView = QtCharts.QChartView()
+        self.chartView.resize(400,300)
+        self.chartView.setRenderHint(QPainter.Antialiasing)
+        #图表
+        chart = QtCharts.QChart()
+        self.chartView.setChart(chart)
+        #设置标题
+        chart.setTitle('Simple splinechart example')
+
+        # 添加Series
+        self.getSeries(chart)
+
+        # 创建默认xy轴
+        chart.createDefaultAxes()
+        chart.legend().setVisible(False)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.addWidget(self.chartView)
+        self.setLayout(self.horizontalLayout)
+
+    def getSeries(self, chart):
+        # 第一组
+        series = QtCharts.QSplineSeries(chart)
+        series << QPointF(4000, 5) << QPointF(6000, 7) << QPointF(10000, 6) << QPointF(11000, 7) \
+        << QPointF(12000, 6) << QPointF(16000, 7) << QPointF(18000, 5)
+        chart.addSeries(series)
+
+        # 第二组
+        series = QtCharts.QSplineSeries(chart)
+        series << QPointF(4000, 3) << QPointF(6000, 4) << QPointF(10000, 3) << QPointF(11000, 2) \
+        << QPointF(12000, 3) << QPointF(16000, 4) << QPointF(18000, 3)
+        chart.addSeries(series)
+
+        # 第三组
+        series = QtCharts.QSplineSeries(chart)
+        chart.addSeries(series)
+
+
+class TouchPanel(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+    
+    def initUI(self):
+        self.vlayout = QVBoxLayout()
+        self.label = QLabel("Touch Panel")
+
+        self.vlayout.addWidget(self.label)
+
+        self.setLayout(self.vlayout)
+
+
 class Percent(QWidget):
 
     MinValue = 0
@@ -147,6 +207,8 @@ class Percent(QWidget):
                  borderColor=QColor(24, 189, 155),
                  backgroundColor=QColor(70, 70, 70), **kwargs):
         super().__init__()
+        self.resize(100,100)
+        
         self.Value = value
         self.MinValue = minValue
         self.MaxValue = maxValue
@@ -164,6 +226,10 @@ class Percent(QWidget):
     def paintEvent(self,event):
         width = self.width()
         height = self.height()
+
+        print("paintEvent width :",width)
+        print("paintEvent height :",height)
+
         side = min(width, height)
         painter = QPainter(self)
 
@@ -182,9 +248,10 @@ class Percent(QWidget):
         self.drawCircle(event,painter)
         # #绘制圆弧
         self.drawArc(event,painter)
-        # #绘制文字
+        # 绘制文字
         self.drawText(event,painter)
         painter.end()
+
 
 
     def drawCircle(self,event,painter):
@@ -301,25 +368,55 @@ class Window(QWidget):
     def __init__(self):
         super().__init__()
         self.setGeometry(300,300,500,500)
-        layout = QHBoxLayout(self)
+
+        #wwg = QWidget(self)
+
+        wl = QVBoxLayout(self)
+
+        layout1 = QHBoxLayout()
         self._widgets = []
-        self._widgets.append(Percent(self))
-        layout.addWidget(self._widgets[0])
-        self.thraed1 = MyThread1()
-        self.thraed1.sinOut1.connect(self.Percent1display)
-        self.thraed1.start()
 
-        self._widgets.append(Percent(self))
-        layout.addWidget(self._widgets[1])
-        self.thraed2 = MyThread2()
-        self.thraed2.sinOut2.connect(self.Percent2display)
-        self.thraed2.start()
+        #self._widgets.append(Percent(self))
+        # self._widgets[0].show()
+        # self._widgets[0].resize(QSize(100,100))
+        pr = Percent()
+        pr.resize(200,100)
+        layout1.addWidget(pr)
+        layout1.addWidget(Percent())
+        layout1.addWidget(Percent())
 
-        self._widgets.append(Percent(self))
-        layout.addWidget(self._widgets[2])
-        self.thraed3 = MyThread3()
-        self.thraed3.sinOut3.connect(self.Percent3display)
-        self.thraed3.start()
+        # self.thraed1 = MyThread1()
+        # self.thraed1.sinOut1.connect(self.Percent1display)
+        # self.thraed1.start()
+
+        # self._widgets.append(Percent(self))
+        # layout1.addWidget(self._widgets[1])
+        # # self.thraed2 = MyThread2()
+        # # self.thraed2.sinOut2.connect(self.Percent2display)
+        # # self.thraed2.start()
+
+        # self._widgets.append(Percent(self))
+        # layout1.addWidget(self._widgets[2])
+        # self.thraed3 = MyThread3()
+        # self.thraed3.sinOut3.connect(self.Percent3display)
+        # self.thraed3.start()
+
+        # layout1 = QHBoxLayout()
+        # layout1.addWidget(SplineChart())
+        # layout1.addWidget(TouchPanel())
+
+        layout2 = QHBoxLayout()
+        layout2.addWidget(SplineChart())
+        layout2.addWidget(TouchPanel())
+
+       
+        wl.addLayout(layout1)
+       # wl.addSpacing (100)
+        wl.addLayout(layout2)
+        
+
+        self.setLayout(wl)
+
     
     def Percent1display(self,val):
         self._widgets[0].Value = val
@@ -333,69 +430,191 @@ class Window(QWidget):
         self._widgets[2].Value = val
         self._widgets[2].update()
 
-class mianwindow(QMainWindow):
+class mianwindow(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
 
     def initUI(self):
-        
+        #self.setWindowFlags(Qt.FramelessWindowHint|Qt.WindowStaysOnTopHint)
+
+        palette = QPalette()
+        palette.setColor(self.backgroundRole(), QColor(192,253,123))   # 设置背景颜色
+        self.setPalette(palette)
+
         self.setGeometry(300,300,500,500)
 
-        layout = QVBoxLayout()
-        button1 = QPushButton()
-        button1.setIcon(QIcon('1.png'))
-        layout.addWidget(button1)
+        layout = QHBoxLayout(self, spacing=0)
+        layout.setContentsMargins(0, 0, 0, 0)
 
-        button2 = QPushButton()
-        button2.setIcon(QIcon('2.png'))
-        layout.addWidget(button2)
-        button2.clicked.connect(self.myshow2)
+        self.leftlist = QListWidget()
+        layout.addWidget(self.leftlist)
+        #self.leftlist.setGeometry(0,0,76,500)
+        self.leftlist.setSpacing(0)
 
-        button3 = QPushButton()
-        button3.setIcon(QIcon('3.png'))
-        layout.addWidget(button3)
+    
+        self.leftlist.setFixedWidth(78)
+        self.leftlist.setFixedHeight(500)
+        self.leftlist.setIconSize(QSize(70,100))
 
-        button4 = QPushButton()
-        button4.setIcon(QIcon('4.png'))
-        layout.addWidget(button4)
+        # 去掉边框
+        self.leftlist.setFrameShape(QListWidget.NoFrame)
 
-        button5 = QPushButton()
-        button5.setIcon(QIcon('5.png'))
-        layout.addWidget(button5)
-        button5.clicked.connect(self.myshow5)
-
-        self.main_frame = QWidget()
-        self.main_frame.setLayout(layout)
+        # 隐藏滚动条
+        self.leftlist.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.leftlist.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
         
-        self.items = QDockWidget(self)
-        self.items.setStyleSheet('''background-color:black;''')
-        self.items.setWidget(self.main_frame)
-        self.items.setFloating(False)
-        # self.items.setAllowedAreas(Qt.NoDockWidgetArea)
+        #切换图片显示
+        self.setStyleSheet("QListWidget{border:0px solid white; color:black; background: black; outline: 0px;}"
+                        "QListWidget::Item{padding-top:0px; padding-bottom:0px; }"
+                        "QListWidget::Item:hover{background:black;}"
+                        "QListWidget::item:selected:active{border-width:0px; background:black; border-left: 6px solid rgb(9, 187, 7) }"
+                        "QListWidget::item:selected:!active{border-width:0px; background:black; }"
+                        )
 
-        #去除容器的标题
-        lTitleBar = self.items.titleBarWidget()
-        lEmptyWidget = QWidget()
-        self.items.setTitleBarWidget(lEmptyWidget)
-        # delete lTitleBar
+        self.leftlist.setSelectionMode(QAbstractItemView.ExtendedSelection)
 
-        self.addDockWidget(Qt.LeftDockWidgetArea,self.items)
 
-        self.ex = Window()
-        self.setCentralWidget(self.ex)    
-        self.ex.show()
+        item1 = QListWidgetItem()
+        item1.setSizeHint(QSize(76,100))
+        item1.setIcon(QIcon('1.png'))
+
+        item2 = QListWidgetItem()
+        item2.setSizeHint(QSize(76,100))
+        item2.setIcon(QIcon('2.png'))
+
+        item3 = QListWidgetItem()
+        item3.setSizeHint(QSize(76,100))
+        item3.setIcon(QIcon('3.png'))
+
+        item4 = QListWidgetItem()
+        item4.setSizeHint(QSize(76,100))
+        item4.setIcon(QIcon('4.png'))
+
+        item5 = QListWidgetItem()
+        item5.setSizeHint(QSize(76,100))
+        item5.setIcon(QIcon('5.png'))
+
+        self.leftlist.insertItem(0,item1)
+        self.leftlist.insertItem(1,item2)
+        self.leftlist.insertItem(2,item3)
+        self.leftlist.insertItem(3,item4)
+        self.leftlist.insertItem(4,item5)
+
+        self.stack1 = Window()
+        self.stack2 = QWidget()
+        self.stack3 = QWidget()
+        self.stack4 = QWidget()
+        self.stack5 = Setbutton()
+
+        # self.stack1UI()
+        self.stack2UI()
+        self.stack3UI()
+        self.stack4UI()
+        # self.stack5UI()
+
+        self.stack = QStackedWidget(self)
+        layout.addWidget(self.stack)
+        self.stack.addWidget(self.stack1)
+        self.stack.addWidget(self.stack2)
+        self.stack.addWidget(self.stack3)
+        self.stack.addWidget(self.stack4)
+        self.stack.addWidget(self.stack5)
+
+        self.setLayout(layout)
+        self.leftlist.currentRowChanged.connect(self.display)
+        self.show()
+
+
+    def display(self,i):
+        self.stack.setCurrentIndex(i)
+
+
+
+    def stack2UI(self):
+        layout = QFormLayout()
+        sex = QHBoxLayout()
+        sex.addWidget(QRadioButton("男"))
+        sex.addWidget(QRadioButton("女"))
+
+        layout.addRow(QLabel("性别"),sex)
+        layout.addRow("生日",QLineEdit())
+        self.stack2.setLayout(layout)
+
+    def stack3UI(self):
+        layout = QHBoxLayout()
+        layout.addWidget(QLabel("科目"))
+        layout.addWidget(QCheckBox("物理"))
+        layout.addWidget(QCheckBox("高数"))
+        self.stack3.setLayout(layout)
+
+    def stack4UI(self):
+        layout = QHBoxLayout()
+        layout.addWidget(QLabel("科目"))
+        layout.addWidget(QCheckBox("物理"))
+        layout.addWidget(QCheckBox("高数"))
+        self.stack3.setLayout(layout)
+
+
+
+
+        # layout = QVBoxLayout()
+
+        # button1 = QPushButton()
+        # button1.setIcon(QIcon('1.png'))
+        # layout.addWidget(button1)
+
+        # button2 = QPushButton()
+        # button2.setIcon(QIcon('2.png'))
+        # layout.addWidget(button2)
+        # button2.clicked.connect(self.myshow2)
+
+        # button3 = QPushButton()
+        # button3.setIcon(QIcon('3.png'))
+        # layout.addWidget(button3)
+
+        # button4 = QPushButton()
+        # button4.setIcon(QIcon('4.png'))
+        # layout.addWidget(button4)
+
+        # button5 = QPushButton()
+        # button5.setIcon(QIcon('5.png'))
+        # layout.addWidget(button5)
+        # button5.clicked.connect(self.myshow5)
         
-    def myshow2(self):
-        self.ex = Window()
-        self.setCentralWidget(self.ex)    
-        self.ex.show()
+        # layout.setSpacing(0)
+        # self.main_frame = QWidget()
+        # self.main_frame.setLayout(layout)
 
-    def myshow5(self):
-        self.set = Setbutton()
-        self.setCentralWidget(self.set)
-        self.set.show()
+        # #创建一个容器，放置导航控件
+        # self.items = QDockWidget(self)
+        # self.items.setStyleSheet('''background-color:black;''')
+        # self.items.setWidget(self.main_frame)
+        # self.items.setFloating(False)
+        # # self.items.setAllowedAreas(Qt.NoDockWidgetArea)
+
+        # #去除容器的标题
+        # lTitleBar = self.items.titleBarWidget()
+        # lEmptyWidget = QWidget()
+        # self.items.setTitleBarWidget(lEmptyWidget)
+        # # delete lTitleBar
+
+        # self.addDockWidget(Qt.LeftDockWidgetArea,self.items)
+
+        # self.ex = Window()
+        # self.setCentralWidget(self.ex)    
+        # self.ex.show()
+        
+    # def myshow2(self):
+    #     self.ex = Window()
+    #     self.setCentralWidget(self.ex)    
+    #     self.ex.show()
+
+    # def myshow5(self):
+    #     self.set = Setbutton()
+    #     self.setCentralWidget(self.set)
+    #     self.set.show()
 
 
 
