@@ -1,6 +1,6 @@
 pragma Singleton
 import QtQuick 2.10
-import "simulation.js" as JS
+// import "simulation.js" as JS
 
 QtObject {
     id: values
@@ -44,6 +44,7 @@ QtObject {
     Component.onCompleted: {
         // 绑定python中的信号到qml中的函数
         _CpuUsage.CpuSignal.connect(cpuchangevalue)
+        _Cputemperature.CputemSignal.connect(cputemchangevalue)
         _RamUsage.RamSignal.connect(ramchangevalue)
         _StorageUsage.StoragSignal.connect(flashchangevalue)
         _Accelerator.AxisSignal.connect(axischangevalue)
@@ -70,6 +71,32 @@ QtObject {
             values.cpu = Number(values.cpu_redata * 10)
             values.displaycpu = String(values.cpu_redata)
             values.cpu_redata += 1
+        }
+        
+    }
+
+    // cpu temp values
+    property int cputemp: 0
+    property string displaycputemp: "0"
+    property int cputem_data: 0
+    property int cputem_redata: 0
+    function cputemchangevalue(value) {
+        if(value != undefined) {
+            values.cputem_data = Number(value)
+        }  
+    }
+    function cputemdisplay(){
+        if(values.cputem_redata > values.cputem_data)
+        {   
+            Values.cputemp = Number(values.cputem_redata * 10)
+            Values.displaycputemp = String(values.cputem_redata)
+            values.cputem_redata -= 1
+        }
+        if(values.cputem_redata < values.cputem_data)
+        {
+            Values.cputemp = Number(values.cputem_redata * 10)
+            Values.displaycputemp = String(values.cputem_redata)
+            values.cputem_redata += 1
         }
         
     }
@@ -151,14 +178,11 @@ QtObject {
         interval: 10
     }
 
-    // cpu temp values
-    property int cputemp: 0
-    property string displaycputemp: "0"
-
+ 
     property Timer cputempTimer: Timer{
         running: true
         repeat: true
-        onTriggered: JS.cputempTimer()
+        onTriggered: cputemdisplay()
         interval: 20
     }
 

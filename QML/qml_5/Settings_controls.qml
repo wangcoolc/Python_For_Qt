@@ -95,13 +95,13 @@ Item {
 
                 onClicked:
                 {
-                    if (switch2.checked == true)
+                    if (switch5.checked == true)
                     {
-                        _Settting.SSHon()
+                        _Settting.I2Con()
                     }
-                    if (switch2.checked == false)
+                    if (switch5.checked == false)
                     {
-                        _Settting.SSHoff()
+                        _Settting.I2Coff()
                     }
                     
                 }
@@ -114,8 +114,22 @@ Item {
                 width: 62
                 height: 41
                 text: "dasdad"
+                checked: false
                 checkable: true
                 scale: 3.5
+
+                onClicked:
+                {
+                    if (switch4.checked == true)
+                    {
+                        _Settting.SPIon()
+                    }
+                    if (switch4.checked == false)
+                    {
+                        _Settting.SPIoff()
+                    }
+                    
+                }
             }
 
             Switch {
@@ -125,8 +139,22 @@ Item {
                 width: 62
                 height: 41
                 text: "dasdad"
+                checked: false
                 checkable: true
                 scale: 3.5
+
+                onClicked:
+                {
+                    if (switch3.checked == true)
+                    {
+                        _Settting.VNCon()
+                    }
+                    if (switch3.checked == false)
+                    {
+                        _Settting.VNCoff()
+                    }
+                    
+                }
             }
 
             Switch {
@@ -136,8 +164,22 @@ Item {
                 width: 62
                 height: 41
                 text: "dasdad"
+                checked: false
                 checkable: true
                 scale: 3.5
+
+                onClicked:
+                {
+                    if (switch6.checked == true)
+                    {
+                        _Settting.Serialon()
+                    }
+                    if (switch6.checked == false)
+                    {
+                        _Settting.Serialoff()
+                    }
+                    
+                }
             }
 
             Text {
@@ -220,6 +262,11 @@ Item {
                     button: "#444260"
                     buttonText: "white"
                 }
+
+                onClicked:
+                { 
+                    _Settting.Shutdown()   
+                }
             }
 
             Button {
@@ -237,6 +284,11 @@ Item {
                     button: "#444260"
                     buttonText: "white"
                 }
+
+                onClicked:
+                { 
+                    _Settting.Rebooton()   
+                }
             }
 
             Button {
@@ -253,6 +305,11 @@ Item {
                 palette {
                     button: "#444260"
                     buttonText: "white"
+                }
+
+                onClicked:
+                { 
+                    _Settting.Logout()   
                 }
             }
 }

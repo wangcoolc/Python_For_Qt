@@ -39,6 +39,19 @@ class CpuUsage(QThread):
             self.CpuSignal.emit(int(val))
             self.sleep(1)
 
+class Cputemperature(QThread):
+    CputemSignal = Signal(int)
+    def __init__(self):
+        super().__init__()
+    
+    def run(self):
+        while True:
+            val = random.randint(1,100)
+            print("vvv4",val)
+            self.CputemSignal.emit(int(val))
+            self.sleep(1)
+
+
 
 class RamUsage(QThread):
     RamSignal = Signal(int)
@@ -102,13 +115,16 @@ class Settting(QObject):
     @Slot(int)
     def Lcdlightset(self,val):
         print("tetete",val)
+        values = '%d'%val
+        x = 'echo ' + values + ' > /sys/class/backlight/10-0045/brightness'
+        ss= os.system(x)
+        print("-------------------",ss)
 
 
     #Camera
     @Slot()
     def Cameraon(self):
         print("camera on")
-
     @Slot()
     def Cameraoff(self):
         print("camera off")
@@ -117,10 +133,59 @@ class Settting(QObject):
     @Slot()
     def SSHon(self):
         print("ssh on")
-
     @Slot()
     def SSHoff(self):
         print("ssh off")
+
+    #VNC
+    @Slot()
+    def VNCon(self):
+        print("vnc on")
+    @Slot()
+    def VNCoff(self):
+        print("vnc off")
+
+
+    #SPI
+    @Slot()
+    def SPIon(self):
+        print("SPI on")
+    @Slot()
+    def SPIoff(self):
+        print("SPI off")
+
+    #I2C
+    @Slot()
+    def I2Con(self):
+        print("i2c on")
+    @Slot()
+    def I2Coff(self):
+        print("i2c off")
+    
+    #Serial
+    @Slot()
+    def Serialon(self):
+        print("Serial on")
+    @Slot()
+    def Serialoff(self):
+        print("Serial off")
+
+    #Shutdown
+    @Slot()
+    def Shutdown(self):
+        print("Shutdown")
+
+    #Reboot
+    @Slot()
+    def Rebooton(self):
+        print("Rebooton")
+
+    #Logout
+    @Slot()
+    def Logout(self):
+        print("Logout")
+
+    
 
 
 if __name__ == '__main__':
@@ -130,6 +195,7 @@ if __name__ == '__main__':
     url = QUrl("NewbuttonUI.qml")
 
     cpu = CpuUsage()
+    cputem = Cputemperature()
     arm = RamUsage()
     Storage = StorageUsage()
     axis = Accelerator()
@@ -140,6 +206,7 @@ if __name__ == '__main__':
     # context = view.rootContext()
     context = engine.rootContext()
     context.setContextProperty("_CpuUsage", cpu)
+    context.setContextProperty("_Cputemperature", cputem)
     context.setContextProperty("_RamUsage", arm)
     context.setContextProperty("_StorageUsage", Storage)
     context.setContextProperty("_Accelerator", axis)
@@ -150,6 +217,7 @@ if __name__ == '__main__':
 
 
     cpu.start()
+    cputem.start()
     arm.start()
     Storage.start()
     axis.start()
