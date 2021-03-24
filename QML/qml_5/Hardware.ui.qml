@@ -3,8 +3,8 @@ import "backend/Data" as Data
 
 Item {
     id: hardware
-    width: 1920
-    height: 1080
+    width: 1280
+    height: 720
 
     property alias axisXvalue: accel1.count
 
@@ -12,23 +12,27 @@ Item {
         id: hardwareAsset
         x: 0
         y: 0
+        width: 1280
+        height: 720
         source: "assets/hardware.png"
     }
 
     Light {
         id: light
-        x: 191
-        y: 53
+        x: -5
+        y: -50
         width: 833
         height: 480
+        scale: 0.67
     }
 
     Accel1 {
         id: accel1
-        x: 191
-        y: 548
+        x: -5
+        y: 295
         width: 833
         height: 480
+        scale: 0.67
 
         property int count: 0
         function timerChange() {
@@ -55,26 +59,29 @@ Item {
 
     Touch_panel_123 {
         id: touch_panel_123
-        x: 1055
-        y: 547
+        x: 566
+        y: 295
         width: 835
         height: 481
+        scale: 0.67
     }
 
     Leds {
         id: leds
-        x: 1055
-        y: 52
+        x: 566
+        y: -50
         width: 835
         height: 481
+        scale: 0.67
     }
 
     Ui_navigate_4 {
         id: ui_navigate_4
-        x: 0
-        y: 0
+        x: -26
+        y: -178
         width: 159
         height: 1080
+        scale: 0.67
     }
 }
 

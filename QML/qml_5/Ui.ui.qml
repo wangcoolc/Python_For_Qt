@@ -6,66 +6,69 @@ import QtQuick.Studio.Effects 1.0
 
 Item {
     id: ui
-    width: 1920
-    height: 1080
+    width: 1280
+    height: 720
 
     Image {
         id: uiAsset
         x: 0
         y: 0
+        width: 1280
+        height: 720
         source: "assets/ui.png"
     }
 
     Storage_usage {
         id: storage_usage
-        x: 1162
-        y: 597
+        x: 697
+        y: 369
         width: 545
         height: 316
-        scale: 1.4
+        scale: 0.95
         displaystore: Data.Values.displayflash
         storeframe: Data.Values.flash
     }
 
     Ram_usage {
         id: ram_usage
-        x: 1163
-        y: 112
+        x: 701
+        y: 35
         width: 544
         height: 315
-        scale: 1.4
+        scale: 0.95
         ramdisplay: Data.Values.displayram
         ramframe: Data.Values.ram
     }
 
     Cpu_usage {
         id: cpu_usage
-        x: 348
-        y: 111
+        x: 143
+        y: 34
         width: 544
         height: 316
-        scale: 1.4
+        scale: 0.95
         displaycpu: Data.Values.displaycpu
         cpuframe: Data.Values.cpu
     }
 
     Ui_navigate_1 {
         id: ui_navigate_1
-        x: 0
-        y: 0
+        x: -26
+        y: -178
         width: 160
         height: 1080
+        scale: 0.67
     }
 
     Cpu_temp {
         id: cpu_temp
-        x: 348
-        y: 597
+        x: 139
+        y: 369
         width: 544
         height: 316
         tempvalue: Data.Values.displaycputemp
         displaycputemp: Data.Values.cputemp
-        scale: 1.4
+        scale: 0.95
     }
 }
 

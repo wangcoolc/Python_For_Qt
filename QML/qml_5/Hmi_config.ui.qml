@@ -2,30 +2,34 @@ import QtQuick 2.8
 
 Item {
     id: hmi_config
-    width: 1920
-    height: 1080
+    width: 1280
+    height: 720
 
     Image {
         id: hmi_configAsset
         x: 0
         y: 0
+        width: 1280
+        height: 720
         source: "assets/hmi_config.png"
     }
 
     Hmi_diagram {
         id: hmi_diagram
-        x: 224
-        y: 55
+        x: -125
+        y: -91
         width: 1634
         height: 885
+        scale: 0.67
     }
 
     Ui_navigate_3 {
         id: ui_navigate_3
-        x: 0
-        y: 0
+        x: -26
+        y: -178
         width: 159
         height: 1080
+        scale: 0.67
     }
 }
 

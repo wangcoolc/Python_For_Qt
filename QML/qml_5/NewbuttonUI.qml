@@ -2,25 +2,27 @@ import QtQuick 2.8
 import QtQuick.Controls 2.1
 
 ApplicationWindow {
+    id: application
     title: "ReTerminal UI"
     width: 1280
     height: 720
     visible: true
+    visibility: "FullScreen"
 
 
     property var iniITEM: "Home.ui.qml"
 
     StackView {
         id: stackview
-        width: 1920
-        height: 1080
+        width: 1280
+        height: 720
 
         replaceEnter: Transition {
                   PropertyAnimation{
                       property: "opacity"
                       from: 0
                       to: 1
-                      duration: 300
+                      duration: 1
                   }
               }
 
@@ -29,7 +31,7 @@ ApplicationWindow {
                       property: "opacity"
                       from: 1
                       to: 0
-                      duration: 250
+                      duration: 1
                   }
         }
 
@@ -43,12 +45,13 @@ ApplicationWindow {
     }
 
     Button {
-        anchors.centerIn: parent
+        id: button
+        x: -21
+        y: -22
         width: 172
         height: 181
         opacity: 0
-        anchors.verticalCenterOffset: -445
-        anchors.horizontalCenterOffset: -874
+        scale: 0.76
         onClicked: {
             stackview.replace("Home.ui.qml")
         }
@@ -56,51 +59,77 @@ ApplicationWindow {
 
 
     Button {
-        anchors.centerIn: parent
+        id: button1
+        x: -21
+        y: 114
         width: 172
         height: 181
         opacity: 0
-        anchors.verticalCenterOffset: -258
-        anchors.horizontalCenterOffset: -874
+        scale: 0.76
         onClicked: {
             stackview.replace("Ui.ui.qml")
         }
     }
 
     Button {
-        anchors.centerIn: parent
-        width: 158
+        id: button2
+        x: 0
+        y: 246
+        width: 172
         height: 212
         opacity: 0
-        anchors.verticalCenterOffset: -39
-        anchors.horizontalCenterOffset: -880
+        scale: 0.76
         onClicked: {
             stackview.replace("Hardware.ui.qml")
         }
     }
 
     Button {
-        anchors.centerIn: parent
-        width: 159
+        id: button3
+        x: 0
+        y: 439
+        width: 172
         height: 210
         opacity: 0
-        anchors.verticalCenterOffset: 204
-        anchors.horizontalCenterOffset: -880
+        scale: 0.76
         onClicked: {
             stackview.replace("Hmi_config.ui.qml")
         }
     }
 
     Button {
-        anchors.centerIn: parent
+        id: button4
+        x: -21
+        y: 569
         width: 172
-        height: 181
+        height: 172
         opacity: 0
-        anchors.verticalCenterOffset: 450
-        anchors.horizontalCenterOffset: -874
+        scale: 0.76
         onClicked: {
             stackview.replace("Settings.ui.qml")
         }
+    }
+
+    Button {
+        id: closebutton
+        x: 1200
+        y: 0
+        width: 80
+        height: 31
+        palette {
+            button: "red"
+            buttonText: "white"
+        }
+        opacity: 100
+        text: "X"
+        anchors.right: parent.right
+        anchors.top: parent.top
+        autoRepeat: false
+        flat: false
+        font.family: "Verdana"
+        onClicked: {
+            application.close()
+            }
     }
 
 }

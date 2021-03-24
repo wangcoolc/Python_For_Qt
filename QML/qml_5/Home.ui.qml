@@ -7,54 +7,61 @@ import "backend/Data" as Data
 
 Item {
     id: home
-    width: 1920
-    height: 1080
+    width: 1280
+    height: 720
 
     Image {
         id: homeAsset
-        x: -997
-        y: -48
+        x: 0
+        y: 0
+        width: 1280
+        height: 720
         source: "assets/home.png"
     }
 
     Hmiblock {
         id: hmiblock
-        x: 692
-        y: 574
+        x: 381
+        y: 296
         width: 476
         height: 480
+        scale: 0.67
     }
 
     Dashboardblock {
         id: dashboardblock
-        x: 208
-        y: 576
+        x: 55
+        y: 296
         width: 476
         height: 480
+        scale: 0.67
     }
 
     Reterminalblock {
         id: reterminalblock
-        x: 208
-        y: 50
+        x: -24
+        y: -60
         width: 960
         height: 524
+        scale: 0.67
     }
 
     Home_navigate {
         id: home_navigate
-        x: 0
-        y: 0
+        x: -26
+        y: -178
         width: 159
         height: 1080
+        scale: 0.67
     }
 
     Touch_panel12 {
         id: touch_panel12
-        x: 1177
-        y: 51
+        x: 666
+        y: -139
         width: 713
         height: 1001
+        scale: 0.67
         cm4104032Text: Data.Values.displayCM4name
         rt02cm4Text: Data.Values.displaybuildcode
         raspberry_pi_os_marcText: Data.Values.displayos
