@@ -106,7 +106,7 @@ QtObject {
     property int ram_redata: 0
     function ramchangevalue(value) {
         if(value != undefined) {
-            values.ram_data = Number(value) 
+            values.ram_data = Number(value)
         }  
     }
     function ramdisplay(value) {
@@ -118,8 +118,8 @@ QtObject {
         }
         if(values.ram_redata < values.ram_data)
         {
-            values.ram = Number(values.ram_redata * 10)
-            values.displayram = String(values.ram_redata)
+            values.ram = Number(values.ram_data * 10)
+            values.displayram = String(values.ram_data)
             values.ram_redata += 1
         }
   
@@ -143,7 +143,7 @@ QtObject {
         if(values.flash_redata < values.flash_data)
         {
             values.flash = Number(values.flash_redata * 10)
-            values.displayram = String(values.flash_redata)
+            values.displayflash = String(values.flash_redata)
             values.flash_redata += 1
         }
 

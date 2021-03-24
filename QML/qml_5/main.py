@@ -34,9 +34,10 @@ class CpuUsage(QThread):
     
     def run(self):
         while True:
-            val = random.randint(1,100)
-            print("vvv1",val)
-            self.CpuSignal.emit(int(val))
+            p = os.popen("top -n1 | awk '/Cpu\(s\):/ {print $2}'").readline().strip("\n")
+            cpu_used = int(float(p))
+            print("CpuUsage",cpu_used)
+            self.CpuSignal.emit(int(cpu_used))
             self.sleep(1)
 
 class Cputemperature(QThread):
@@ -46,9 +47,10 @@ class Cputemperature(QThread):
     
     def run(self):
         while True:
-            val = random.randint(1,100)
-            print("vvv4",val)
-            self.CputemSignal.emit(int(val))
+            f = open("/sys/class/thermal/thermal_zone0/temp",'r')
+            temp = int(f.read().strip("\n"))/1000
+            print("Cputemperature",temp)
+            self.CputemSignal.emit(int(temp))
             self.sleep(1)
 
 
@@ -59,11 +61,25 @@ class RamUsage(QThread):
         super().__init__()
     
     def run(self):
+        p = os.popen('free')
+        i = 0
         while True:
-            val = random.randint(1,100)
-            print("vvv2",val)
-            self.RamSignal.emit(int(val))
-            self.sleep(1)
+            i = i + 1
+            line = p.readline()
+            if i==2:
+                RAM_stats = line.split()[1:4]  
+                RAM_total = round(int(RAM_stats[0]) / 1000,0)
+                RAM_used = round(int(RAM_stats[1]) / 1000,0)
+
+                print("RAM_total",RAM_total)
+                print("RAM_used",RAM_used)
+
+                used = round(int((RAM_used / RAM_total) * 100),0)
+                print("used",used)
+                self.RamSignal.emit(int(used))
+                self.sleep(1)
+                p = os.popen('free')
+                i = 0
 
 
 class StorageUsage(QThread):
@@ -72,11 +88,25 @@ class StorageUsage(QThread):
         super().__init__()
     
     def run(self):
+        p = os.popen("df -h /")
+        i = 0
         while True:
-            val = random.randint(1,100)
-            print("vvv3",val)
-            self.StoragSignal.emit(int(val))
-            self.sleep(1)
+            i = i +1
+            line = p.readline()
+            if i==2:
+                DISK_stats = line.split()[1:5]
+                DISK_total = int(str(DISK_stats[0][0:2]))
+                DISK_used = int(str(DISK_stats[1][0:2]))
+
+                print("DISK_total",DISK_total)
+                print("DISK_used",DISK_used)
+
+                val = round(int((DISK_used / DISK_total) * 100),0)
+                print("StorageUsage",val)
+                self.StoragSignal.emit(int(val))
+                self.sleep(1)
+                p = os.popen("df -h /")
+                i = 0
 
 
 class Accelerator(QThread):
@@ -115,75 +145,90 @@ class Settting(QObject):
     @Slot(int)
     def Lcdlightset(self,val):
         print("tetete",val)
+        os.system('sudo chown pi:pi /sys/class/backlight/10-0045/brightness')
         values = '%d'%val
         x = 'echo ' + values + ' > /sys/class/backlight/10-0045/brightness'
-        ss= os.system(x)
-        print("-------------------",ss)
-
+        os.system(x)
 
     #Camera
     @Slot()
     def Cameraon(self):
         print("camera on")
+        os.system('sudo sed -i "s/start_x=0/start_x=1/g" /boot/config.txt')
     @Slot()
     def Cameraoff(self):
         print("camera off")
+        os.system('sudo sed -i "s/start_x=1/start_x=0/g" /boot/config.txt')
 
     #SSH
     @Slot()
     def SSHon(self):
         print("ssh on")
+        os.system('sudo ln -s /lib/systemd/system/ssh.service /etc/systemd/system/multi-user.target.wants/ssh.service')
     @Slot()
     def SSHoff(self):
         print("ssh off")
+        os.system('sudo rm /etc/systemd/system/multi-user.target.wants/ssh.service')
 
     #VNC
     @Slot()
     def VNCon(self):
         print("vnc on")
+        os.system('sudo ln -s /usr/lib/systemd/system/vncserver-x11-serviced.service /etc/systemd/system/multi-user.target.wants/vncserver-x11-serviced.service')
     @Slot()
     def VNCoff(self):
         print("vnc off")
+        os.system('sudo rm /etc/systemd/system/multi-user.target.wants/vncserver-x11-serviced.service')
+        
 
 
     #SPI
     @Slot()
     def SPIon(self):
         print("SPI on")
+        os.system('sudo sed -i "s/dtparam=spi=off/dtparam=spi=on/g" /boot/config.txt')
     @Slot()
     def SPIoff(self):
         print("SPI off")
+        os.system('sudo sed -i "s/dtparam=spi=on/dtparam=spi=off/g" /boot/config.txt')
 
     #I2C
     @Slot()
     def I2Con(self):
         print("i2c on")
+        os.system('sudo sed -i "s/dtparam=i2c_arm=off/dtparam=i2c_arm=on/g" /boot/config.txt')
     @Slot()
     def I2Coff(self):
         print("i2c off")
+        os.system('sudo sed -i "s/dtparam=i2c_arm=on/dtparam=i2c_arm=off/g" /boot/config.txt')
     
     #Serial
     @Slot()
     def Serialon(self):
         print("Serial on")
+        os.system('sudo sed -i "s/enable_uart=0/enable_uart=1/g" /boot/config.txt')
     @Slot()
     def Serialoff(self):
         print("Serial off")
+        os.system('sudo sed -i "s/enable_uart=1/enable_uart=0/g" /boot/config.txt')
 
     #Shutdown
     @Slot()
     def Shutdown(self):
         print("Shutdown")
+        os.system('sudo shutdown now')
 
     #Reboot
     @Slot()
     def Rebooton(self):
         print("Rebooton")
+        os.system('sudo reboot')
 
     #Logout
     @Slot()
     def Logout(self):
         print("Logout")
+        os.system('exit')
 
     
 
