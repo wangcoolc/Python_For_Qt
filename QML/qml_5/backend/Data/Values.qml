@@ -12,7 +12,7 @@ QtObject {
     property bool spibutton: true
     property bool i2cbutton: false
     property bool serialbutton: true
-    property int brightness: 50
+    property int brightness: 150
     property bool shutdownbutton: true
     property bool rebootbutton: false
     property bool logoutbutton: true
@@ -153,12 +153,18 @@ QtObject {
     property int displayaxisX: 0
     property int displayaxisY: 0
     property int displayaxisZ: 0
-    property int displaycount: 0
-    function axischangevalue(value1,value2,value3) {
-        values.displayaxisX = Number(value1)
-        values.displayaxisY = Number(value2)
-        values.displayaxisZ = Number(value3)
-        values.displaycount += 1
+    // property int displaycount: 0
+    function axischangevalue(value,str) {
+        if (String(str) == 'x'){
+            values.displayaxisX = Number(value)
+        }
+        if (String(str) == 'y'){
+            values.displayaxisY = Number(value)
+        }
+        if (String(str) == 'z'){
+            values.displayaxisZ = Number(value)
+        }
+        // values.displaycount += 1
     }
 
      

@@ -36,17 +36,17 @@ Item {
 
         property int count: 0
         function timerChange() {
-            console.log("displaycount",Data.Values.displaycount)
             console.log("displayaxisX123",Data.Values.displayaxisX)
-            axisX.append(Data.Values.displaycount,Data.Values.displayaxisX)
-            axisY.append(Data.Values.displaycount,Data.Values.displayaxisY)
-            axisZ.append(Data.Values.displaycount,Data.Values.displayaxisZ)
-            count++;
-            // if (count > 5) {
-            //     axisX.remove(0)
-            //     axisY.remove(0)
-            //     axisZ.remove(0)
-            // }
+            axisX.append(accel1.count,Data.Values.displayaxisX)
+            axisY.append(accel1.count,Data.Values.displayaxisY)
+            axisZ.append(accel1.count,Data.Values.displayaxisZ)
+            accel1.count = accel1.count + 1
+            console.log("22222222222222222",accel1.count)
+            if ((accel1.count % 5) == 0 ) {
+                axisX.remove(0)
+                axisY.remove(0)
+                axisZ.remove(0)
+            }
         }
     }
 

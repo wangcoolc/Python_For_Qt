@@ -2,6 +2,7 @@
 import os, random
 import sys
 import PySide2.QtQml
+from evdev import *
 from PySide2.QtQml import QQmlApplicationEngine
 from PySide2.QtWidgets import *
 from PySide2.QtQuick import *
@@ -110,18 +111,30 @@ class StorageUsage(QThread):
 
 
 class Accelerator(QThread):
-    AxisSignal = Signal(int,int,int)
+    AxisSignal = Signal(int,str)
     def __init__(self):
         super().__init__()
     
-    def run(self):
-    
+    def run(self):    
         while True:
-            val1 = random.randint(4000,12000)
-            val2 = random.randint(4000,12000)
-            val3 = random.randint(4000,12000)
-            self.AxisSignal.emit(val1,val2,val3)
-            self.sleep(1)
+            abs = InputDevice("/dev/input/event3")
+            print(abs)
+
+            for event in abs.read_loop():
+                if event.type == ecodes.EV_ABS:
+                    val = repr(event)
+                    val_list = val.replace('(','').replace(')','').replace(' ','').split(',')
+                    print(val_list[3],val_list[4])
+                    if val_list[3] == '0':
+                        axis_x = int(val_list[4])
+                        self.AxisSignal.emit(axis_x,'x')
+                    if val_list[3] == '1':
+                        axix_y = int(val_list[4])
+                        self.AxisSignal.emit(axix_y,'y')
+                    if val_list[3] == '2':
+                        axis_z = int(val_list[4])
+                        self.AxisSignal.emit(axis_z,'z') 
+                    self.sleep(1)
 
 class Systeminfo(QThread):
     SystemSignal = Signal(str,str,str,str,str,str)
@@ -137,6 +150,23 @@ class Systeminfo(QThread):
         Wifi = "okey"
         self.sleep(1)
         self.SystemSignal.emit(Compute,Retermial,Version,Kernel,Ethernet,Wifi)
+
+
+class LedsKey(QThread):
+    KeySignal = Signal(int,str)
+    def __init__(self):
+        super().__init__()
+    
+    def run(self):    
+        while True:
+            key = InputDevice("/dev/input/event1")
+            print(key)
+            for event in key.read_loop():
+                if event.type == ecodes.EV_ABS:
+                    events = repr(event)
+                    print(events)
+                    # val_list = events.replace('(','').replace(')','').replace(' ','').split(',')
+                    self.sleep(1)
 
 
 class Settting(QObject):
@@ -245,6 +275,7 @@ if __name__ == '__main__':
     Storage = StorageUsage()
     axis = Accelerator()
     sysinfo = Systeminfo()
+    ledkey = LedsKey()
 
     seting = Settting()
 
@@ -256,6 +287,7 @@ if __name__ == '__main__':
     context.setContextProperty("_StorageUsage", Storage)
     context.setContextProperty("_Accelerator", axis)
     context.setContextProperty("_Systeminfo", sysinfo)
+    context.setContextProperty("_LedsKey", ledkey)
 
     context.setContextProperty("_Settting", seting)
 
@@ -266,6 +298,7 @@ if __name__ == '__main__':
     arm.start()
     Storage.start()
     axis.start()
+    ledkey.start()
     sysinfo.start()
 
     # view.setSource(url)

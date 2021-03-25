@@ -33,7 +33,6 @@ Item {
     ChartView {
         id: chartview
         title: "Accelerator 3-Axis"
-        // title.Alignment: Qt.AlignLeft
         anchors.fill: parent
         antialiasing: true
 
@@ -41,16 +40,16 @@ Item {
         ValueAxis {
             id: valueAxisX
             min: 0
-            max: 5>axisXvalue ? 5:axisXvalue+1
+            max: 5>=axisXvalue ? 5:axisXvalue+1
             tickCount: 6
         }
 
         //Y轴
         ValueAxis {
             id: valueAxisY
-            min: 4000
-            max: 12000
-            tickCount: 5
+            min: -1200
+            max: 1200
+            tickCount: 7
         }
 
         SplineSeries {
