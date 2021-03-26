@@ -1,11 +1,17 @@
 import QtQuick 2.8
 import QtQuick.Studio.Components 1.0
+import "backend/Data" as Data
 
 Item {
     id: leds
     width: 835
     height: 481
 
+    property alias rectangle3FillColor: rectangle3.fillColor
+    property alias rectangle2FillColor: rectangle2.fillColor
+    property alias rectangle1FillColor: rectangle1.fillColor
+    property alias rectangleFillColor: rectangle.fillColor
+    
     Image {
         id: led_border
         x: 0
@@ -32,6 +38,46 @@ Item {
         horizontalAlignment: Text.AlignLeft
         font.styleName: "Regular"
         font.family: "Microsoft YaHei"
+    }
+
+    RectangleItem {
+        id: rectangle
+        x: 663
+        y: 262
+        width: 120
+        height: 42
+        radius: 0
+        strokeColor: "#00000000"
+    }
+
+    RectangleItem {
+        id: rectangle1
+        x: 544
+        y: 262
+        width: 120
+        height: 42
+        radius: 0
+        strokeColor: "#00000000"
+    }
+
+    RectangleItem {
+        id: rectangle2
+        x: 424
+        y: 262
+        width: 120
+        height: 42
+        radius: 0
+        strokeColor: "#00000000"
+    }
+
+    RectangleItem {
+        id: rectangle3
+        x: 304
+        y: 262
+        width: 120
+        height: 42
+        radius: 0
+        strokeColor: "#00000000"
     }
 }
 

@@ -41,7 +41,6 @@ Item {
             axisY.append(accel1.count,Data.Values.displayaxisY)
             axisZ.append(accel1.count,Data.Values.displayaxisZ)
             accel1.count = accel1.count + 1
-            console.log("22222222222222222",accel1.count)
             if ((accel1.count % 5) == 0 ) {
                 axisX.remove(0)
                 axisY.remove(0)
@@ -54,7 +53,7 @@ Item {
         running: true
         repeat: true
         onTriggered: accel1.timerChange()
-        interval: 1000
+        interval: 100
     }
 
     Touch_panel_123 {
@@ -73,6 +72,10 @@ Item {
         width: 835
         height: 481
         scale: 0.67
+        rectangle3FillColor: Data.Values.led4color
+        rectangle2FillColor: Data.Values.led3color
+        rectangle1FillColor: Data.Values.led2color
+        rectangleFillColor: Data.Values.led1color
     }
 
     Ui_navigate_4 {

@@ -118,7 +118,7 @@ class Accelerator(QThread):
     def run(self):    
         while True:
             abs = InputDevice("/dev/input/event3")
-            print(abs)
+            # print(abs)
 
             for event in abs.read_loop():
                 if event.type == ecodes.EV_ABS:
@@ -134,7 +134,34 @@ class Accelerator(QThread):
                     if val_list[3] == '2':
                         axis_z = int(val_list[4])
                         self.AxisSignal.emit(axis_z,'z') 
-                    self.sleep(1)
+                    # self.sleep(1)
+
+class LedsKey(QThread):
+    KeySignal = Signal(int,str)
+    def __init__(self):
+        super().__init__()
+    
+    def run(self):    
+        while True:
+            key = InputDevice("/dev/input/event1")
+            print(key)
+            for event in key.read_loop():
+                if event.type == ecodes.EV_KEY:
+                    events = repr(event)
+                    val_list = events.replace('(','').replace(')','').replace(' ','').split(',')
+                    if val_list[3] == '33':
+                        key_4 = int(val_list[4])
+                        self.KeySignal.emit(key_4,'key4')
+                    if val_list[3] == '32':
+                        key_3 = int(val_list[4])
+                        self.KeySignal.emit(key_3,'key3')
+                    if val_list[3] == '31':
+                        key_2 = int(val_list[4])
+                        self.KeySignal.emit(key_2,'key2')
+                    if val_list[3] == '30':
+                        key_1 = int(val_list[4])
+                        self.KeySignal.emit(key_1,'key1')
+
 
 class Systeminfo(QThread):
     SystemSignal = Signal(str,str,str,str,str,str)
@@ -150,23 +177,6 @@ class Systeminfo(QThread):
         Wifi = "okey"
         self.sleep(1)
         self.SystemSignal.emit(Compute,Retermial,Version,Kernel,Ethernet,Wifi)
-
-
-class LedsKey(QThread):
-    KeySignal = Signal(int,str)
-    def __init__(self):
-        super().__init__()
-    
-    def run(self):    
-        while True:
-            key = InputDevice("/dev/input/event1")
-            print(key)
-            for event in key.read_loop():
-                if event.type == ecodes.EV_ABS:
-                    events = repr(event)
-                    print(events)
-                    # val_list = events.replace('(','').replace(')','').replace(' ','').split(',')
-                    self.sleep(1)
 
 
 class Settting(QObject):

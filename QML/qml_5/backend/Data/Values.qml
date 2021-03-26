@@ -49,7 +49,7 @@ QtObject {
         _StorageUsage.StoragSignal.connect(flashchangevalue)
         _Accelerator.AxisSignal.connect(axischangevalue)
         _Systeminfo.SystemSignal.connect(systeminfo)
-        
+        _LedsKey.KeySignal.connect(ledsbuttchange)    
     }
 
     property int cpu_data: 0
@@ -165,6 +165,56 @@ QtObject {
             values.displayaxisZ = Number(value)
         }
         // values.displaycount += 1
+    }
+
+
+    //leds
+    property string led1color: "#FF0000"
+    property string led2color: "#FF0000"
+    property string led3color: "#FF0000"
+    property string led4color: "#FF0000"
+    function ledsbuttchange(value,str) {
+        if (String(str) == 'key1'){
+            if (Number(value) == 1)
+            {
+                led1color = "#FF0000"
+            }
+            if (Number(value) == 0)
+            {
+                led1color = "#00000000"
+            }     
+        }
+        if (String(str) == 'key2'){
+            if (Number(value) == 1)
+            {
+                led2color = "#FF0000"
+            }
+            if (Number(value) == 0)
+            {
+                led2color = "#00000000"
+            }
+        }
+        if (String(str) == 'key3'){
+            if (Number(value) == 1)
+            {
+                led3color = "#FF0000"
+            }
+            if (Number(value) == 0)
+            {
+                led3color = "#00000000"
+            }
+        }
+        if (String(str) == 'key4'){
+            if (Number(value) == 1)
+            {
+                led4color = "#FF0000"
+            }
+            if (Number(value) == 0)
+            {
+                led4color = "#00000000"
+            }
+        }
+  
     }
 
      
