@@ -180,7 +180,7 @@ Item {
         text: "80"
         font.pixelSize: 14
         horizontalAlignment: Text.AlignLeft
-        scale: 1.2
+        scale: 1
         font.family: "Microsoft YaHei"
         font.styleName: "Regular"
     }
@@ -233,7 +233,7 @@ Item {
         height: 344
         end: 90
         begin: -90
-        strokeColor: "#0bda3a"
+        strokeColor: "#ffda83"
         strokeWidth: 50
         fillColor: "#00000000"
     }
@@ -269,462 +269,505 @@ Item {
         }
 
         KeyframeGroup {
+            target: gadget2
+            property: "scale"
+            Keyframe {
+                value: 1.2
+                frame: 95
+            }
+
+            Keyframe {
+                value: 1.2
+                frame: 105
+            }
+
+            Keyframe {
+                value: 1
+                frame: 90
+            }
+
+            Keyframe {
+                value: 1
+                frame: 110
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget2
+            property: "color"
+            Keyframe {
+                value: "#ffda83"
+                frame: 95
+            }
+
+            Keyframe {
+                value: "#ffda83"
+                frame: 105
+            }
+
+            Keyframe {
+                value: "#000000"
+                frame: 90
+            }
+
+            Keyframe {
+                value: "#000000"
+                frame: 110
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget3
+            property: "scale"
+            Keyframe {
+                frame: 195
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 205
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 190
+                value: 1
+            }
+
+            Keyframe {
+                frame: 210
+                value: 1
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget3
+            property: "color"
+            Keyframe {
+                frame: 195
+                value: "#ffda83"
+            }
+
+            Keyframe {
+                frame: 205
+                value: "#ffda83"
+            }
+
+            Keyframe {
+                frame: 190
+                value: "#000000"
+            }
+
+            Keyframe {
+                frame: 210
+                value: "#000000"
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget4
+            property: "scale"
+            Keyframe {
+                frame: 295
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 305
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 290
+                value: 1
+            }
+
+            Keyframe {
+                frame: 310
+                value: 1
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget4
+            property: "color"
+            Keyframe {
+                frame: 295
+                value: "#ffda83"
+            }
+
+            Keyframe {
+                frame: 305
+                value: "#ffda83"
+            }
+
+            Keyframe {
+                frame: 290
+                value: "#000000"
+            }
+
+            Keyframe {
+                frame: 310
+                value: "#000000"
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget5
+            property: "scale"
+            Keyframe {
+                frame: 395
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 405
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 390
+                value: 1
+            }
+
+            Keyframe {
+                frame: 410
+                value: 1
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget5
+            property: "color"
+            Keyframe {
+                frame: 395
+                value: "#ffda83"
+            }
+
+            Keyframe {
+                frame: 405
+                value: "#ffda83"
+            }
+
+            Keyframe {
+                frame: 390
+                value: "#000000"
+            }
+
+            Keyframe {
+                frame: 410
+                value: "#000000"
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget6
+            property: "scale"
+            Keyframe {
+                frame: 495
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 505
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 490
+                value: 1
+            }
+
+            Keyframe {
+                frame: 510
+                value: 1
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget6
+            property: "color"
+            Keyframe {
+                frame: 495
+                value: "#ffda83"
+            }
+
+            Keyframe {
+                frame: 505
+                value: "#ffda83"
+            }
+
+            Keyframe {
+                frame: 490
+                value: "#000000"
+            }
+
+            Keyframe {
+                frame: 510
+                value: "#000000"
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget7
+            property: "scale"
+            Keyframe {
+                value: 1.2
+                frame: 595
+            }
+
+            Keyframe {
+                value: 1.2
+                frame: 605
+            }
+
+            Keyframe {
+                value: 1
+                frame: 590
+            }
+
+            Keyframe {
+                value: 1
+                frame: 610
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget7
+            property: "color"
+            Keyframe {
+                value: "#ffda83"
+                frame: 595
+            }
+
+            Keyframe {
+                value: "#ffda83"
+                frame: 605
+            }
+
+            Keyframe {
+                value: "#000000"
+                frame: 590
+            }
+
+            Keyframe {
+                value: "#000000"
+                frame: 610
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget8
+            property: "scale"
+            Keyframe {
+                value: 1.2
+                frame: 695
+            }
+
+            Keyframe {
+                value: 1.2
+                frame: 705
+            }
+
+            Keyframe {
+                value: 1
+                frame: 690
+            }
+
+            Keyframe {
+                value: 1
+                frame: 710
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget8
+            property: "color"
+            Keyframe {
+                value: "#ffda83"
+                frame: 695
+            }
+
+            Keyframe {
+                value: "#ffda83"
+                frame: 705
+            }
+
+            Keyframe {
+                value: "#000000"
+                frame: 690
+            }
+
+            Keyframe {
+                value: "#000000"
+                frame: 710
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget10
+            property: "scale"
+            Keyframe {
+                frame: 895
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 905
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 890
+                value: 1
+            }
+
+            Keyframe {
+                frame: 910
+                value: 1
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget10
+            property: "color"
+            Keyframe {
+                frame: 895
+                value: "#eb3a3a"
+            }
+
+            Keyframe {
+                frame: 905
+                value: "#eb3a3a"
+            }
+
+            Keyframe {
+                frame: 890
+                value: "#000000"
+            }
+
+            Keyframe {
+                frame: 910
+                value: "#000000"
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget11
+            property: "scale"
+            Keyframe {
+                frame: 1000
+                value: 1.2
+            }
+
+            Keyframe {
+                frame: 990
+                value: 1
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget11
+            property: "color"
+            Keyframe {
+                frame: 1000
+                value: "#eb3a3a"
+            }
+
+            Keyframe {
+                frame: 990
+                value: "#000000"
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget1
+            property: "scale"
+            Keyframe {
+                value: 1.2
+                frame: 5
+            }
+
+            Keyframe {
+                value: 1.2
+                frame: 10
+            }
+
+            Keyframe {
+                value: 1
+                frame: 15
+            }
+
+            Keyframe {
+                value: 1
+                frame: 0
+            }
+        }
+
+        KeyframeGroup {
+            target: gadget1
+            property: "color"
+            Keyframe {
+                value: "#ffda83"
+                frame: 5
+            }
+
+            Keyframe {
+                value: "#ffda83"
+                frame: 10
+            }
+
+            Keyframe {
+                value: "#000000"
+                frame: 15
+            }
+
+            Keyframe {
+                value: "#000000"
+                frame: 0
+            }
+        }
+
+        KeyframeGroup {
             target: arc1
             property: "strokeColor"
             Keyframe {
-                value: "#0bda3a"
-                frame: 499
+                value: "#ffda83"
+                frame: 899
             }
 
             Keyframe {
-                value: "#eba83a"
-                frame: 500
+                value: "#ff4141"
+                frame: 900
             }
 
             Keyframe {
-                value: "#eba83a"
-                frame: 799
-            }
-
-            Keyframe {
-                value: "#eb3a3a"
-                frame: 800
-            }
-
-            Keyframe {
-                value: "#eb3a3a"
+                value: "#ff4141"
                 frame: 1000
             }
         }
 
         KeyframeGroup {
-            target: gadget2
+            target: gadget9
             property: "scale"
             Keyframe {
                 value: 1.2
-                frame: 95
+                frame: 795
             }
 
             Keyframe {
                 value: 1.2
-                frame: 105
+                frame: 805
             }
 
             Keyframe {
                 value: 1
-                frame: 90
+                frame: 810
             }
 
             Keyframe {
                 value: 1
-                frame: 110
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget2
-            property: "color"
-            Keyframe {
-                value: "#0bda3a"
-                frame: 95
-            }
-
-            Keyframe {
-                value: "#0bda3a"
-                frame: 105
-            }
-
-            Keyframe {
-                value: "#000000"
-                frame: 90
-            }
-
-            Keyframe {
-                value: "#000000"
-                frame: 110
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget3
-            property: "scale"
-            Keyframe {
-                frame: 195
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 205
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 190
-                value: 1
-            }
-
-            Keyframe {
-                frame: 210
-                value: 1
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget3
-            property: "color"
-            Keyframe {
-                frame: 195
-                value: "#0bda3a"
-            }
-
-            Keyframe {
-                frame: 205
-                value: "#0bda3a"
-            }
-
-            Keyframe {
-                frame: 190
-                value: "#000000"
-            }
-
-            Keyframe {
-                frame: 210
-                value: "#000000"
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget4
-            property: "scale"
-            Keyframe {
-                frame: 295
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 305
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 290
-                value: 1
-            }
-
-            Keyframe {
-                frame: 310
-                value: 1
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget4
-            property: "color"
-            Keyframe {
-                frame: 295
-                value: "#0bda3a"
-            }
-
-            Keyframe {
-                frame: 305
-                value: "#0bda3a"
-            }
-
-            Keyframe {
-                frame: 290
-                value: "#000000"
-            }
-
-            Keyframe {
-                frame: 310
-                value: "#000000"
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget5
-            property: "scale"
-            Keyframe {
-                frame: 395
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 405
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 390
-                value: 1
-            }
-
-            Keyframe {
-                frame: 410
-                value: 1
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget5
-            property: "color"
-            Keyframe {
-                frame: 395
-                value: "#0bda3a"
-            }
-
-            Keyframe {
-                frame: 405
-                value: "#0bda3a"
-            }
-
-            Keyframe {
-                frame: 390
-                value: "#000000"
-            }
-
-            Keyframe {
-                frame: 410
-                value: "#000000"
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget6
-            property: "scale"
-            Keyframe {
-                frame: 495
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 505
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 490
-                value: 1
-            }
-
-            Keyframe {
-                frame: 510
-                value: 1
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget6
-            property: "color"
-            Keyframe {
-                frame: 495
-                value: "#eba83a"
-            }
-
-            Keyframe {
-                frame: 505
-                value: "#eba83a"
-            }
-
-            Keyframe {
-                frame: 490
-                value: "#000000"
-            }
-
-            Keyframe {
-                frame: 510
-                value: "#000000"
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget7
-            property: "scale"
-            Keyframe {
-                value: 1.2
-                frame: 595
-            }
-
-            Keyframe {
-                value: 1.2
-                frame: 605
-            }
-
-            Keyframe {
-                value: 1
-                frame: 590
-            }
-
-            Keyframe {
-                value: 1
-                frame: 610
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget7
-            property: "color"
-            Keyframe {
-                value: "#eba83a"
-                frame: 595
-            }
-
-            Keyframe {
-                value: "#eba83a"
-                frame: 605
-            }
-
-            Keyframe {
-                value: "#000000"
-                frame: 590
-            }
-
-            Keyframe {
-                value: "#000000"
-                frame: 610
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget8
-            property: "scale"
-            Keyframe {
-                value: 1.2
-                frame: 695
-            }
-
-            Keyframe {
-                value: 1.2
-                frame: 705
-            }
-
-            Keyframe {
-                value: 1
-                frame: 690
-            }
-
-            Keyframe {
-                value: 1
-                frame: 710
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget8
-            property: "color"
-            Keyframe {
-                value: "#eba83a"
-                frame: 695
-            }
-
-            Keyframe {
-                value: "#eba83a"
-                frame: 705
-            }
-
-            Keyframe {
-                value: "#000000"
-                frame: 690
-            }
-
-            Keyframe {
-                value: "#000000"
-                frame: 710
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget10
-            property: "scale"
-            Keyframe {
-                frame: 895
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 905
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 890
-                value: 1
-            }
-
-            Keyframe {
-                frame: 910
-                value: 1
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget10
-            property: "color"
-            Keyframe {
-                frame: 895
-                value: "#eb3a3a"
-            }
-
-            Keyframe {
-                frame: 905
-                value: "#eb3a3a"
-            }
-
-            Keyframe {
-                frame: 890
-                value: "#000000"
-            }
-
-            Keyframe {
-                frame: 910
-                value: "#000000"
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget11
-            property: "scale"
-            Keyframe {
-                frame: 1000
-                value: 1.2
-            }
-
-            Keyframe {
-                frame: 990
-                value: 1
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget11
-            property: "color"
-            Keyframe {
-                frame: 1000
-                value: "#eb3a3a"
-            }
-
-            Keyframe {
-                frame: 990
-                value: "#000000"
-            }
-        }
-
-        KeyframeGroup {
-            target: gadget1
-            property: "scale"
-            Keyframe {
-                value: 1.2
-                frame: 5
-            }
-
-            Keyframe {
-                value: 1.2
-                frame: 10
-            }
-
-            Keyframe {
-                value: 1
-                frame: 15
+                frame: 790
             }
 
             Keyframe {
@@ -734,26 +777,26 @@ Item {
         }
 
         KeyframeGroup {
-            target: gadget1
+            target: gadget9
             property: "color"
             Keyframe {
-                value: "#0bda3a"
-                frame: 5
+                value: "#ffda83"
+                frame: 795
             }
 
             Keyframe {
-                value: "#0bda3a"
-                frame: 10
-            }
-
-            Keyframe {
-                value: "#000000"
-                frame: 15
+                value: "#ffda83"
+                frame: 805
             }
 
             Keyframe {
                 value: "#000000"
-                frame: 0
+                frame: 790
+            }
+
+            Keyframe {
+                value: "#000000"
+                frame: 810
             }
         }
     }
