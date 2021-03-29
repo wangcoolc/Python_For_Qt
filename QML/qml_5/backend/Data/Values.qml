@@ -49,7 +49,8 @@ QtObject {
         _StorageUsage.StoragSignal.connect(flashchangevalue)
         _Accelerator.AxisSignal.connect(axischangevalue)
         _Systeminfo.SystemSignal.connect(systeminfo)
-        _LedsKey.KeySignal.connect(ledsbuttchange)    
+        _LedsKey.KeySignal.connect(ledsbuttchange)
+        _TouchPanel.TouchSignal.connect(touchpanelvalue)    
     }
 
     property int cpu_data: 0
@@ -169,55 +170,76 @@ QtObject {
 
 
     //leds
-    property string led1color: "#FF0000"
-    property string led2color: "#FF0000"
-    property string led3color: "#FF0000"
-    property string led4color: "#FF0000"
+    property bool f1Visible
+    property bool f2Visible
+    property bool f3Visible
+    property bool o1Visible
     function ledsbuttchange(value,str) {
         if (String(str) == 'key1'){
             if (Number(value) == 1)
             {
-                led1color = "#FF0000"
+                f1Visible = true
+                
+
             }
             if (Number(value) == 0)
             {
-                led1color = "#00000000"
+                f1Visible = false
             }     
         }
         if (String(str) == 'key2'){
             if (Number(value) == 1)
             {
-                led2color = "#FF0000"
+                f2Visible = true
             }
             if (Number(value) == 0)
             {
-                led2color = "#00000000"
+                f2Visible = false
             }
         }
         if (String(str) == 'key3'){
             if (Number(value) == 1)
             {
-                led3color = "#FF0000"
+                f3Visible = true
             }
             if (Number(value) == 0)
             {
-                led3color = "#00000000"
+                f3Visible = false
             }
         }
         if (String(str) == 'key4'){
             if (Number(value) == 1)
             {
-                led4color = "#FF0000"
+                o1Visible = true
             }
             if (Number(value) == 0)
             {
-                led4color = "#00000000"
+                o1Visible = false
             }
         }
   
     }
 
-     
+    //touch panel
+    property string circle1x: "-1"
+    property string circle1y: "-1"
+    // property string circle2x: "200"
+    // property string circle2y: "200"
+    // property string circle3x: "300"
+    // property string circle3y: "200"
+    // property string circle4x: "100"
+    // property string circle4y: "200"
+    // property string circle5x: "500"
+    // property string circle5y: "300"
+    function touchpanelvalue(value,str) {
+        if (String(str) == 'axisx'){
+            values.circle1x = String(Number(value) / 2)
+        }
+        if (String(str) == 'axisy'){
+            values.circle1y = String(Number(value) / 2)
+        }
+    }
+
     function systeminfo(str1,str2,str3,str4,str5,str6) {
         displayCM4name = String(str1)
         displaybuildcode = String(str2)
@@ -226,6 +248,7 @@ QtObject {
         displayethernet = String(str5)
         displaywifi = String(str6)
     }
+
 
     property Timer cpuTimer: Timer{
         running: true

@@ -117,7 +117,7 @@ class Accelerator(QThread):
     
     def run(self):    
         while True:
-            abs = InputDevice("/dev/input/event3")
+            abs = InputDevice("/dev/input/event2")
             # print(abs)
 
             for event in abs.read_loop():
@@ -143,12 +143,13 @@ class LedsKey(QThread):
     
     def run(self):    
         while True:
-            key = InputDevice("/dev/input/event1")
+            key = InputDevice("/dev/input/event0")
             print(key)
             for event in key.read_loop():
                 if event.type == ecodes.EV_KEY:
-                    events = repr(event)
-                    val_list = events.replace('(','').replace(')','').replace(' ','').split(',')
+                    keyevents = repr(event)
+                    val_list = keyevents.replace('(','').replace(')','').replace(' ','').split(',')
+                    print(val_list)
                     if val_list[3] == '33':
                         key_4 = int(val_list[4])
                         self.KeySignal.emit(key_4,'key4')
@@ -161,6 +162,27 @@ class LedsKey(QThread):
                     if val_list[3] == '30':
                         key_1 = int(val_list[4])
                         self.KeySignal.emit(key_1,'key1')
+
+
+class TouchPanel(QThread):
+    TouchSignal = Signal(int,str)
+    def __init__(self):
+        super().__init__()
+    
+    def run(self):    
+        while True:
+            touch = InputDevice("/dev/input/event3")
+            print(touch)
+            for event in touch.read_loop():
+                if event.type == ecodes.EV_ABS:
+                    touchevents = repr(event)
+                    val_list = touchevents.replace('(','').replace(')','').replace(' ','').split(',')
+                    if val_list[3] == '53':
+                        xvalue = int(val_list[4])
+                        self.TouchSignal.emit(xvalue,'axisx')
+                    if val_list[3] == '54':
+                        yvalue = int(val_list[4])
+                        self.TouchSignal.emit(yvalue,'axisy')
 
 
 class Systeminfo(QThread):
@@ -268,7 +290,7 @@ class Settting(QObject):
     @Slot()
     def Logout(self):
         print("Logout")
-        os.system('exit')
+        sys.exit()
 
     
 
@@ -286,6 +308,7 @@ if __name__ == '__main__':
     axis = Accelerator()
     sysinfo = Systeminfo()
     ledkey = LedsKey()
+    touchpanel = TouchPanel()
 
     seting = Settting()
 
@@ -298,6 +321,7 @@ if __name__ == '__main__':
     context.setContextProperty("_Accelerator", axis)
     context.setContextProperty("_Systeminfo", sysinfo)
     context.setContextProperty("_LedsKey", ledkey)
+    context.setContextProperty("_TouchPanel", touchpanel)
 
     context.setContextProperty("_Settting", seting)
 
@@ -309,6 +333,7 @@ if __name__ == '__main__':
     Storage.start()
     axis.start()
     ledkey.start()
+    touchpanel.start()
     sysinfo.start()
 
     # view.setSource(url)
