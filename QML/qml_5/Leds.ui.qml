@@ -7,11 +7,11 @@ Item {
     width: 835
     height: 481
 
-    property alias rectangle3FillColor: rectangle3.fillColor
-    property alias rectangle2FillColor: rectangle2.fillColor
-    property alias rectangle1FillColor: rectangle1.fillColor
-    property alias rectangleFillColor: rectangle.fillColor
-    
+    property alias o1Visible: o1.visible
+    property alias f3Visible: f3.visible
+    property alias f2Visible: f2.visible
+    property alias f1Visible: f1.visible
+
     Image {
         id: led_border
         x: 0
@@ -40,44 +40,40 @@ Item {
         font.family: "Microsoft YaHei"
     }
 
-    RectangleItem {
-        id: rectangle
+    Image {
+        id: f3
+        x: 545
+        y: 259
+        visible: true
+        source: "assets/f3.png"
+        fillMode: Image.PreserveAspectFit
+    }
+
+    Image {
+        id: f1
+        x: 297
+        y: 259
+        visible: true
+        source: "assets/f1.png"
+        fillMode: Image.PreserveAspectFit
+    }
+
+    Image {
+        id: o1
         x: 663
-        y: 262
-        width: 120
-        height: 42
-        radius: 0
-        strokeColor: "#00000000"
+        y: 259
+        visible: true
+        source: "assets/o.png"
+        fillMode: Image.PreserveAspectFit
     }
 
-    RectangleItem {
-        id: rectangle1
-        x: 544
-        y: 262
-        width: 120
-        height: 42
-        radius: 0
-        strokeColor: "#00000000"
-    }
-
-    RectangleItem {
-        id: rectangle2
-        x: 424
-        y: 262
-        width: 120
-        height: 42
-        radius: 0
-        strokeColor: "#00000000"
-    }
-
-    RectangleItem {
-        id: rectangle3
-        x: 304
-        y: 262
-        width: 120
-        height: 42
-        radius: 0
-        strokeColor: "#00000000"
+    Image {
+        id: f2
+        x: 425
+        y: 259
+        visible: true
+        source: "assets/f2.png"
+        fillMode: Image.PreserveAspectFit
     }
 }
 
