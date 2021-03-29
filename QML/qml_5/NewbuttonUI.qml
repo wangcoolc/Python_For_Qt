@@ -17,21 +17,21 @@ ApplicationWindow {
         width: 1280
         height: 720
 
-        replaceEnter: Transition {
+        pushEnter: Transition {
                   PropertyAnimation{
                       property: "opacity"
                       from: 0
                       to: 1
-                      duration: 1
+                      duration: 1/20
                   }
               }
 
-        replaceExit: Transition {
+        pushExit: Transition {
                   PropertyAnimation{
                       property: "opacity"
                       from: 1
                       to: 0
-                      duration: 1
+                      duration: 1/20
                   }
         }
 
@@ -53,10 +53,36 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.replace("Home.ui.qml")
+            stackview.push("Home.ui.qml")
         }
     }
 
+    Button {
+            id: button5
+            x: 135
+            y: 454
+            width: 362
+            height: 360
+            opacity: 0
+            scale: 0.76
+            onClicked: {
+                stackview.push("Ui.ui.qml")
+            }
+        }
+
+    
+    Button {
+            id: button6
+            x: 566
+            y: 454
+            width: 362
+            height: 360
+            opacity: 0
+            scale: 0.76
+            onClicked: {
+                stackview.push("Hmi_config.ui.qml")
+            }
+        }
 
     Button {
         id: button1
@@ -67,7 +93,7 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.replace("Ui.ui.qml")
+            stackview.push("Ui.ui.qml")
         }
     }
 
@@ -80,7 +106,7 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.replace("Hardware.ui.qml")
+            stackview.push("Hardware.ui.qml")
         }
     }
 
@@ -93,7 +119,7 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.replace("Hmi_config.ui.qml")
+            stackview.push("Hmi_config.ui.qml")
         }
     }
 
@@ -106,31 +132,31 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.replace("Settings.ui.qml")
+            stackview.push("Settings.ui.qml")
         }
     }
 
-    Button {
-        id: closebutton
-        x: 1200
-        y: 0
-        width: 80
-        height: 31
-        palette {
-            button: "red"
-            buttonText: "white"
-        }
-        opacity: 100
-        text: "X"
-        anchors.right: parent.right
-        anchors.top: parent.top
-        autoRepeat: false
-        flat: false
-        font.family: "Verdana"
-        onClicked: {
-            application.close()
-            }
-    }
+    // Button {
+    //     id: closebutton
+    //     x: 1200
+    //     y: 0
+    //     width: 80
+    //     height: 31
+    //     palette {
+    //         button: "red"
+    //         buttonText: "white"
+    //     }
+    //     opacity: 100
+    //     text: "X"
+    //     anchors.right: parent.right
+    //     anchors.top: parent.top
+    //     autoRepeat: false
+    //     flat: false
+    //     font.family: "Verdana"
+    //     onClicked: {
+    //         application.close()
+    //         }
+    // }
 
 }
 
