@@ -223,21 +223,82 @@ QtObject {
     //touch panel
     property string circle1x: "-1"
     property string circle1y: "-1"
-    // property string circle2x: "200"
-    // property string circle2y: "200"
-    // property string circle3x: "300"
-    // property string circle3y: "200"
-    // property string circle4x: "100"
-    // property string circle4y: "200"
-    // property string circle5x: "500"
-    // property string circle5y: "300"
+    property string circle2x: "200"
+    property string circle2y: "200"
+    property string circle3x: "300"
+    property string circle3y: "200"
+    property string circle4x: "100"
+    property string circle4y: "200"
+    property string circle5x: "500"
+    property string circle5y: "300"
+
+    property bool circle1Visible: false
+    property bool circle2Visible: false
+    property bool circle3Visible: false
+    property bool circle4Visible: false
+    property bool circle5Visible: false
+    property string circle1Scale: "0"
+    property string circle2Scale: "0"
+    property string circle3Scale: "0"
+    property string circle4Scale: "0"
+    property string circle5Scale: "0"
+
+
     function touchpanelvalue(value,str) {
-        if (String(str) == 'axisx'){
+        if (String(str) == 'axisx1'){
             values.circle1x = String(Number(value) / 2)
+            values.circle1Visible = true 
         }
-        if (String(str) == 'axisy'){
+        if (String(str) == 'axisy1'){
             values.circle1y = String(Number(value) / 2)
         }
+        if (String(str) == 'axisz1'){
+            values.circle1Scale = String(Number(value) / 255 * 20)
+        }
+
+        if (String(str) == 'axisx2'){
+            values.circle2x = String(Number(value) / 2)
+        }
+        if (String(str) == 'axisy2'){
+            values.circle2y = String(Number(value) / 2)
+        }
+        if (String(str) == 'axisz2'){
+            values.circle2Scale = String(Number(value) / 255 * 20)
+        }
+
+        if (String(str) == 'axisx3'){
+            values.circle3x = String(Number(value) / 2)
+        }
+        if (String(str) == 'axisy3'){
+            values.circle3y = String(Number(value) / 2)
+        }
+        if (String(str) == 'axisz3'){
+            values.circle3Scale = String(Number(value) / 255 * 20)
+        }
+
+        if (String(str) == 'axisx4'){
+            values.circle4x = String(Number(value) / 2)
+        }
+        if (String(str) == 'axisy4'){
+            values.circle4y = String(Number(value) / 2)
+        }
+        if (String(str) == 'axisz4'){
+            values.circle4Scale = String(Number(value) / 255 * 20)
+        }
+
+        if (String(str) == 'axisx5'){
+            values.circle5x = String(Number(value) / 2)
+            values.circle5Visible = true
+            console.log("values.circle5x",values.circle5x)
+        }
+        if (String(str) == 'axisy5'){
+            values.circle5y = String(Number(value) / 2)
+            console.log("values.circle5y",values.circle5y)
+        }
+        if (String(str) == 'axisz5'){
+            values.circle5Scale = String(Number(value) / 255 * 20)
+        }
+
     }
 
     function systeminfo(str1,str2,str3,str4,str5,str6) {
