@@ -17,7 +17,7 @@ ApplicationWindow {
         width: 1280
         height: 720
 
-        pushEnter: Transition {
+        replaceEnter: Transition {
                   PropertyAnimation{
                       property: "opacity"
                       from: 0
@@ -26,7 +26,7 @@ ApplicationWindow {
                   }
               }
 
-        pushExit: Transition {
+        replaceExit: Transition {
                   PropertyAnimation{
                       property: "opacity"
                       from: 1
@@ -53,7 +53,7 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.push("Home.ui.qml")
+            stackview.replace("Home.ui.qml")
         }
     }
 
@@ -66,7 +66,7 @@ ApplicationWindow {
             opacity: 0
             scale: 0.76
             onClicked: {
-                stackview.push("Ui.ui.qml")
+                stackview.replace("Ui.ui.qml")
             }
         }
 
@@ -80,7 +80,7 @@ ApplicationWindow {
             opacity: 0
             scale: 0.76
             onClicked: {
-                stackview.push("Hmi_config.ui.qml")
+                stackview.replace("Hmi_config.ui.qml")
             }
         }
 
@@ -93,7 +93,7 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.push("Ui.ui.qml")
+            stackview.replace("Ui.ui.qml")
         }
     }
 
@@ -106,7 +106,7 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.push("Hardware.ui.qml")
+            stackview.replace("Hardware.ui.qml")
         }
     }
 
@@ -119,7 +119,7 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.push("Hmi_config.ui.qml")
+            stackview.replace("Hmi_config.ui.qml")
         }
     }
 
@@ -132,7 +132,7 @@ ApplicationWindow {
         opacity: 0
         scale: 0.76
         onClicked: {
-            stackview.push("Settings.ui.qml")
+            stackview.replace("Settings.ui.qml")
         }
     }
 
