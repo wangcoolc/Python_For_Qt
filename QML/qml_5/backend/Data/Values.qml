@@ -258,6 +258,7 @@ QtObject {
 
         if (String(str) == 'axisx2'){
             values.circle2x = String(Number(value) / 2)
+            values.circle2Visible = true 
         }
         if (String(str) == 'axisy2'){
             values.circle2y = String(Number(value) / 2)
@@ -268,6 +269,7 @@ QtObject {
 
         if (String(str) == 'axisx3'){
             values.circle3x = String(Number(value) / 2)
+            values.circle3Visible = true 
         }
         if (String(str) == 'axisy3'){
             values.circle3y = String(Number(value) / 2)
@@ -278,6 +280,7 @@ QtObject {
 
         if (String(str) == 'axisx4'){
             values.circle4x = String(Number(value) / 2)
+            values.circle4Visible = true 
         }
         if (String(str) == 'axisy4'){
             values.circle4y = String(Number(value) / 2)
