@@ -9,14 +9,15 @@ ApplicationWindow {
     visible: true
     visibility: "FullScreen"
 
-
     property var iniITEM: "Home.ui.qml"
 
     StackView {
         id: stackview
         width: 1280
         height: 720
-
+        // transform: Rotation {
+        //     origin.x: 600; origin.y:500; angle: 90
+        // }
         replaceEnter: Transition {
                   PropertyAnimation{
                       property: "opacity"

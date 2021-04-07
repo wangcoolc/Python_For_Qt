@@ -117,7 +117,11 @@ class Accelerator(QThread):
     
     def run(self):    
         while True:
+<<<<<<< Updated upstream
             abs = InputDevice("/dev/input/event0")
+=======
+            abs = InputDevice("/dev/input/event1")
+>>>>>>> Stashed changes
             # print(abs)
 
             for event in abs.read_loop():
@@ -171,7 +175,11 @@ class TouchPanel(QThread):
     
     def run(self): 
         while True:
+<<<<<<< Updated upstream
             touch = InputDevice("/dev/input/event1")
+=======
+            touch = InputDevice("/dev/input/event0")
+>>>>>>> Stashed changes
             # print(touch)
             circle1Visible = False
             circle2Visible = False
@@ -207,9 +215,13 @@ class TouchPanel(QThread):
                             zvalue = int(val_list[4])
                             self.TouchSignal.emit(zvalue,'axisz1')
 
+<<<<<<< Updated upstream
                 
 
                  
+=======
+                           
+>>>>>>> Stashed changes
                     if val_list[3] == '47':
                         if val_list[4] == '2':
                             circle2Visible = True

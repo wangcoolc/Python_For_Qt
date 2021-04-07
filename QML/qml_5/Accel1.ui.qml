@@ -1,5 +1,6 @@
 import QtQuick 2.8
 import QtCharts 2.2
+import "backend/Data" as Data
 Item {
     id: accel1
     width: 833
@@ -40,7 +41,7 @@ Item {
         ValueAxis {
             id: valueAxisX
             min: 0
-            max: 5>=axisXvalue ? 5:axisXvalue+1
+            max: 6 //5>=axisXvalue ? 5:axisXvalue+1
             tickCount: 6
         }
 
