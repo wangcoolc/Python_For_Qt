@@ -1,5 +1,5 @@
 # This Python file uses the following encoding: utf-8
-import os, random
+import os, random, re
 import sys
 import PySide2.QtQml
 from evdev import *
@@ -7,6 +7,14 @@ from PySide2.QtQml import QQmlApplicationEngine
 from PySide2.QtWidgets import *
 from PySide2.QtQuick import *
 from PySide2.QtCore import *
+
+
+deviceFilePath = '/sys/class/input/'
+intputdevPath  = '/dev/input/'
+tpfilePath = None
+LedsKeyPath = None
+AcceleratorPath = None
+
 
 #定时器的方式
 # class MyClass(QObject):
@@ -112,16 +120,15 @@ class StorageUsage(QThread):
 
 class Accelerator(QThread):
     AxisSignal = Signal(int,str)
-    def __init__(self):
+    Path = None
+    def __init__(self,path):
         super().__init__()
+        if path:
+            self.Path = path
     
     def run(self):    
         while True:
-<<<<<<< Updated upstream
-            abs = InputDevice("/dev/input/event0")
-=======
-            abs = InputDevice("/dev/input/event1")
->>>>>>> Stashed changes
+            abs = InputDevice(self.Path)
             # print(abs)
 
             for event in abs.read_loop():
@@ -142,12 +149,15 @@ class Accelerator(QThread):
 
 class LedsKey(QThread):
     KeySignal = Signal(int,str)
-    def __init__(self):
+    Path = None
+    def __init__(self,path):
         super().__init__()
+        if path:
+            self.Path = path
     
     def run(self):    
         while True:
-            key = InputDevice("/dev/input/event2")
+            key = InputDevice(self.Path)
             # print(key)
             for event in key.read_loop():
                 if event.type == ecodes.EV_KEY:
@@ -170,16 +180,15 @@ class LedsKey(QThread):
 
 class TouchPanel(QThread):
     TouchSignal = Signal(int,str)
-    def __init__(self):
+    Path = None
+    def __init__(self,path):
         super().__init__()
+        if path:
+            self.Path = path
     
     def run(self): 
         while True:
-<<<<<<< Updated upstream
-            touch = InputDevice("/dev/input/event1")
-=======
-            touch = InputDevice("/dev/input/event0")
->>>>>>> Stashed changes
+            touch = InputDevice(self.Path)
             # print(touch)
             circle1Visible = False
             circle2Visible = False
@@ -215,13 +224,7 @@ class TouchPanel(QThread):
                             zvalue = int(val_list[4])
                             self.TouchSignal.emit(zvalue,'axisz1')
 
-<<<<<<< Updated upstream
-                
-
-                 
-=======
                            
->>>>>>> Stashed changes
                     if val_list[3] == '47':
                         if val_list[4] == '2':
                             circle2Visible = True
@@ -393,6 +396,7 @@ class Settting(QObject):
 
     
 
+    
 
 if __name__ == '__main__':
     app = QApplication([])
@@ -401,16 +405,42 @@ if __name__ == '__main__':
     url = QUrl("NewbuttonUI.qml")
     # url = QUrl("Ui.ui.qml")
 
+    appFilePath = os.getcwd()
+    os.chdir(deviceFilePath)
+    number = len(os.listdir(os.getcwd()))
+    for num in range(0,number):
+        namePath ="/sys/class/input/event%d/device/name"%(num)
+        print(namePath)
+        if os.path.isfile(namePath):
+            f = open(namePath,'r')
+            devname = f.read().split('\n')[0]
+            if devname == 'seeed-tp':
+                tpfilePath = intputdevPath + "event%d"%(num)
+                print("aaaa: %s" % tpfilePath)
+                f.close()
+            if devname == 'gpio_keys':
+                LedsKeyPath = intputdevPath + "event%d"%(num)
+                print("bbbb: %s" % LedsKeyPath)
+                f.close()
+            if devname == 'ST LIS3LV02DL Accelerometer':
+                AcceleratorPath = intputdevPath + "event%d"%(num)
+                print("cccc: %s" % AcceleratorPath)
+                f.close()           
+    os.chdir(appFilePath)
+
     cpu = CpuUsage()
     cputem = Cputemperature()
     arm = RamUsage()
     Storage = StorageUsage()
-    axis = Accelerator()
     sysinfo = Systeminfo()
-    ledkey = LedsKey()
-    touchpanel = TouchPanel()
-
     seting = Settting()
+
+    if tpfilePath:
+        touchpanel = TouchPanel(tpfilePath)
+    if LedsKeyPath:
+        ledkey = LedsKey(LedsKeyPath)
+    if AcceleratorPath:
+        axis = Accelerator(AcceleratorPath)
 
     # context = view.rootContext()
     context = engine.rootContext()
