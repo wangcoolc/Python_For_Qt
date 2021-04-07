@@ -297,7 +297,7 @@ Item {
                 y: 866
                 width: 453
                 height: 91
-                text: qsTr("LOGOUT")
+                text: qsTr("EXIT")
                 scale: 1.1
                 font.pointSize: 28
                 checked: false

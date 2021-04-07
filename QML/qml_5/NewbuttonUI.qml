@@ -22,7 +22,7 @@ ApplicationWindow {
                       property: "opacity"
                       from: 0
                       to: 1
-                      duration: 1
+                      duration: 1/20
                   }
               }
 
@@ -31,7 +31,7 @@ ApplicationWindow {
                       property: "opacity"
                       from: 1
                       to: 0
-                      duration: 1
+                      duration: 1/20
                   }
         }
 
@@ -57,6 +57,32 @@ ApplicationWindow {
         }
     }
 
+    Button {
+            id: button5
+            x: 135
+            y: 454
+            width: 362
+            height: 360
+            opacity: 0
+            scale: 0.76
+            onClicked: {
+                stackview.replace("Ui.ui.qml")
+            }
+        }
+
+    
+    Button {
+            id: button6
+            x: 566
+            y: 454
+            width: 362
+            height: 360
+            opacity: 0
+            scale: 0.76
+            onClicked: {
+                stackview.replace("Hmi_config.ui.qml")
+            }
+        }
 
     Button {
         id: button1
@@ -110,27 +136,27 @@ ApplicationWindow {
         }
     }
 
-    Button {
-        id: closebutton
-        x: 1200
-        y: 0
-        width: 80
-        height: 31
-        palette {
-            button: "red"
-            buttonText: "white"
-        }
-        opacity: 100
-        text: "X"
-        anchors.right: parent.right
-        anchors.top: parent.top
-        autoRepeat: false
-        flat: false
-        font.family: "Verdana"
-        onClicked: {
-            application.close()
-            }
-    }
+    // Button {
+    //     id: closebutton
+    //     x: 1200
+    //     y: 0
+    //     width: 80
+    //     height: 31
+    //     palette {
+    //         button: "red"
+    //         buttonText: "white"
+    //     }
+    //     opacity: 100
+    //     text: "X"
+    //     anchors.right: parent.right
+    //     anchors.top: parent.top
+    //     autoRepeat: false
+    //     flat: false
+    //     font.family: "Verdana"
+    //     onClicked: {
+    //         application.close()
+    //         }
+    // }
 
 }
 

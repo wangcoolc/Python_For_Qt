@@ -36,7 +36,6 @@ Item {
 
         property int count: 0
         function timerChange() {
-            console.log("displayaxisX123",Data.Values.displayaxisX)
             axisX.append(accel1.count,Data.Values.displayaxisX)
             axisY.append(accel1.count,Data.Values.displayaxisY)
             axisZ.append(accel1.count,Data.Values.displayaxisZ)
@@ -62,6 +61,26 @@ Item {
         y: 295
         width: 835
         height: 481
+        circle5Scale: Data.Values.circle5Scale
+        circle4Scale: Data.Values.circle4Scale
+        circle3Scale: Data.Values.circle3Scale
+        circle2Scale: Data.Values.circle2Scale
+        circle1Scale: Data.Values.circle1Scale
+        circle5Visible: Data.Values.circle5Visible
+        circle4Visible: Data.Values.circle4Visible
+        circle3Visible: Data.Values.circle3Visible
+        circle2Visible: Data.Values.circle2Visible
+        circle1Visible: Data.Values.circle1Visible
+        circle5Y: Data.Values.circle5y
+        circle5X: Data.Values.circle5x
+        circle4Y: Data.Values.circle4y
+        circle4X: Data.Values.circle4x
+        circle3Y: Data.Values.circle3y
+        circle3X: Data.Values.circle3x
+        circle2Y: Data.Values.circle2y
+        circle2X: Data.Values.circle2x
+        circle1Y: Data.Values.circle1y
+        circle1X: Data.Values.circle1x
         scale: 0.67
     }
 
@@ -72,10 +91,10 @@ Item {
         width: 835
         height: 481
         scale: 0.67
-        rectangle3FillColor: Data.Values.led4color
-        rectangle2FillColor: Data.Values.led3color
-        rectangle1FillColor: Data.Values.led2color
-        rectangleFillColor: Data.Values.led1color
+        o1Visible: Data.Values.o1Visible
+        f3Visible: Data.Values.f3Visible
+        f2Visible: Data.Values.f2Visible
+        f1Visible: Data.Values.f1Visible
     }
 
     Ui_navigate_4 {
