@@ -7,7 +7,6 @@ Item {
     height: 720
 
     property alias axisXvalue: accel1.count
-    // property alias accelchange: accel1.timerChange()
 
     Image {
         id: hardwareAsset
@@ -35,19 +34,8 @@ Item {
         height: 480
         scale: 0.67
 
-        property alias axisXvalue: accel1.count
         property int count: 0
         function timerChange() {
-<<<<<<< Updated upstream
-            axisX.append(accel1.count,Data.Values.displayaxisX)
-            axisY.append(accel1.count,Data.Values.displayaxisY)
-            axisZ.append(accel1.count,Data.Values.displayaxisZ)
-            accel1.count = accel1.count + 1
-            if ((accel1.count % 5) == 0 ) {
-                axisX.remove(0)
-                axisY.remove(0)
-                axisZ.remove(0)
-=======
         axisX.append(count,Data.Values.displayaxisX)
         // axisY.append(count,Data.Values.displayaxisY)
         // axisZ.append(count,Data.Values.displayaxisZ)
@@ -56,13 +44,8 @@ Item {
             accel1.axisX.remove(0)
             // accel1.axisY.remove(0)
             // accel1.axisZ.remove(0)
->>>>>>> Stashed changes
             }
         }
-
-        // axisX: Data.Values.test1
-        // axisY: Data.Values.test2
-        // axisZ: Data.Values.test3
     }
 
     property Timer axisTimer: Timer{
@@ -128,5 +111,6 @@ Item {
 Designer {
     D{i:0;formeditorZoom:0.75;uuid:"db758c043a516da3a6cc8edd0f479654"}D{i:1;uuid:"db758c043a516da3a6cc8edd0f479654_asset"}
 }
+
 ##^##*/
 
