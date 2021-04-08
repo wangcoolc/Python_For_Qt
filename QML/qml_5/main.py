@@ -189,17 +189,19 @@ class TouchPanel(QThread):
     def run(self): 
         while True:
             touch = InputDevice(self.Path)
-            # print(touch)
             circle1Visible = False
             circle2Visible = False
             circle3Visible = False
+            circle3flage   = False
             circle4Visible = False
+            circle4flage   = False
             circle5Visible = False
+            circle5flage   = False
             for event in touch.read_loop():
                 if event.type == ecodes.EV_ABS:
                     touchevents = repr(event)
                     val_list = touchevents.replace('(','').replace(')','').replace(' ','').split(',')
-                    # print(val_list)
+                    print(val_list)
                     if val_list[3] == '53':
                             xvalue = int(val_list[4])
                             self.TouchSignal.emit(xvalue,'axisx1')
@@ -213,21 +215,10 @@ class TouchPanel(QThread):
                     if val_list[3] == '47':
                         if val_list[4] == '1':
                             circle1Visible = True
-                    if  circle1Visible == True:
-                        if val_list[3] == '53':
-                            xvalue = int(val_list[4])
-                            self.TouchSignal.emit(xvalue,'axisx1')
-                        if val_list[3] == '54':
-                            yvalue = int(val_list[4])
-                            self.TouchSignal.emit(yvalue,'axisy1')
-                        if val_list[3] == '48':
-                            zvalue = int(val_list[4])
-                            self.TouchSignal.emit(zvalue,'axisz1')
-
-                           
-                    if val_list[3] == '47':
-                        if val_list[4] == '2':
-                            circle2Visible = True
+                    if circle1Visible == True:
+                        if val_list[3] == '47':
+                            if val_list[4] == '0':
+                                 circle2Visible = True
                     if circle2Visible == True:
                         if val_list[3] == '53':
                             xvalue = int(val_list[4])
@@ -239,10 +230,13 @@ class TouchPanel(QThread):
                             zvalue = int(val_list[4])
                             self.TouchSignal.emit(zvalue,'axisz2')
 
-                    
                     if val_list[3] == '47':
-                        if val_list[4] == '3':
-                            circle3Visible = True 
+                        if val_list[4] == '2':
+                            circle3flage = True
+                    if circle3flage == True:
+                        if val_list[3] == '47':
+                            if val_list[4] == '0':
+                                 circle3Visible = True
                     if circle3Visible == True:
                         if val_list[3] == '53':
                             xvalue = int(val_list[4])
@@ -255,8 +249,12 @@ class TouchPanel(QThread):
                             self.TouchSignal.emit(zvalue,'axisz3')
 
                     if val_list[3] == '47':
-                        if val_list[4] == '4':
-                            circle4Visible = True
+                        if val_list[4] == '3':
+                            circle4flage = True
+                    if circle4flage == True:
+                        if val_list[3] == '47':
+                            if val_list[4] == '0':
+                                 circle4Visible = True
                     if circle4Visible == True:
                         if val_list[3] == '53':
                             xvalue = int(val_list[4])
@@ -267,10 +265,14 @@ class TouchPanel(QThread):
                         if val_list[3] == '48':
                             zvalue = int(val_list[4])
                             self.TouchSignal.emit(zvalue,'axisz4')
-                    
+
                     if val_list[3] == '47':
-                        if val_list[4] == '0':
-                            circle5Visible = True
+                        if val_list[4] == '4':
+                            circle5flage = True
+                    if circle5flage == True:
+                        if val_list[3] == '47':
+                            if val_list[4] == '0':
+                                 circle5Visible = True
                     if circle5Visible == True:
                         if val_list[3] == '53':
                             xvalue = int(val_list[4])
@@ -281,10 +283,9 @@ class TouchPanel(QThread):
                         if val_list[3] == '48':
                             zvalue = int(val_list[4])
                             self.TouchSignal.emit(zvalue,'axisz5')
-
+            
                 if event.type == ecodes.EV_SYN:
                     break
-
                             
                 
 
@@ -317,31 +318,25 @@ class Settting(QObject):
     #Camera
     @Slot()
     def Cameraon(self):
-        # print("camera on")
         os.system('sudo sed -i "s/start_x=0/start_x=1/g" /boot/config.txt')
     @Slot()
     def Cameraoff(self):
-        # print("camera off")
         os.system('sudo sed -i "s/start_x=1/start_x=0/g" /boot/config.txt')
 
     #SSH
     @Slot()
     def SSHon(self):
-        # print("ssh on")
         os.system('sudo ln -s /lib/systemd/system/ssh.service /etc/systemd/system/multi-user.target.wants/ssh.service')
     @Slot()
     def SSHoff(self):
-        # print("ssh off")
         os.system('sudo rm /etc/systemd/system/multi-user.target.wants/ssh.service')
 
     #VNC
     @Slot()
     def VNCon(self):
-        # print("vnc on")
         os.system('sudo ln -s /usr/lib/systemd/system/vncserver-x11-serviced.service /etc/systemd/system/multi-user.target.wants/vncserver-x11-serviced.service')
     @Slot()
     def VNCoff(self):
-        # print("vnc off")
         os.system('sudo rm /etc/systemd/system/multi-user.target.wants/vncserver-x11-serviced.service')
         
 
@@ -349,49 +344,40 @@ class Settting(QObject):
     #SPI
     @Slot()
     def SPIon(self):
-        # print("SPI on")
         os.system('sudo sed -i "s/dtparam=spi=off/dtparam=spi=on/g" /boot/config.txt')
     @Slot()
     def SPIoff(self):
-        # print("SPI off")
         os.system('sudo sed -i "s/dtparam=spi=on/dtparam=spi=off/g" /boot/config.txt')
 
     #I2C
     @Slot()
     def I2Con(self):
-        # print("i2c on")
         os.system('sudo sed -i "s/dtparam=i2c_arm=off/dtparam=i2c_arm=on/g" /boot/config.txt')
     @Slot()
     def I2Coff(self):
-        # print("i2c off")
         os.system('sudo sed -i "s/dtparam=i2c_arm=on/dtparam=i2c_arm=off/g" /boot/config.txt')
     
     #Serial
     @Slot()
     def Serialon(self):
-        # print("Serial on")
         os.system('sudo sed -i "s/enable_uart=0/enable_uart=1/g" /boot/config.txt')
     @Slot()
     def Serialoff(self):
-        # print("Serial off")
         os.system('sudo sed -i "s/enable_uart=1/enable_uart=0/g" /boot/config.txt')
 
     #Shutdown
     @Slot()
     def Shutdown(self):
-        # print("Shutdown")
         os.system('sudo shutdown now')
 
     #Reboot
     @Slot()
     def Rebooton(self):
-        # print("Rebooton")
         os.system('sudo reboot')
 
     #Logout
     @Slot()
     def Logout(self):
-        # print("Logout")
         sys.exit()
 
     
@@ -404,27 +390,24 @@ if __name__ == '__main__':
     engine = QQmlApplicationEngine()
     url = QUrl("NewbuttonUI.qml")
     # url = QUrl("Ui.ui.qml")
+    context = engine.rootContext()
 
     appFilePath = os.getcwd()
     os.chdir(deviceFilePath)
     number = len(os.listdir(os.getcwd()))
     for num in range(0,number):
         namePath ="/sys/class/input/event%d/device/name"%(num)
-        print(namePath)
         if os.path.isfile(namePath):
             f = open(namePath,'r')
             devname = f.read().split('\n')[0]
             if devname == 'seeed-tp':
                 tpfilePath = intputdevPath + "event%d"%(num)
-                print("aaaa: %s" % tpfilePath)
                 f.close()
             if devname == 'gpio_keys':
                 LedsKeyPath = intputdevPath + "event%d"%(num)
-                print("bbbb: %s" % LedsKeyPath)
                 f.close()
             if devname == 'ST LIS3LV02DL Accelerometer':
                 AcceleratorPath = intputdevPath + "event%d"%(num)
-                print("cccc: %s" % AcceleratorPath)
                 f.close()           
     os.chdir(appFilePath)
 
@@ -437,33 +420,30 @@ if __name__ == '__main__':
 
     if tpfilePath:
         touchpanel = TouchPanel(tpfilePath)
+        context.setContextProperty("_TouchPanel", touchpanel)
+        touchpanel.start()
     if LedsKeyPath:
         ledkey = LedsKey(LedsKeyPath)
+        context.setContextProperty("_LedsKey", ledkey)
+        ledkey.start()
     if AcceleratorPath:
         axis = Accelerator(AcceleratorPath)
+        context.setContextProperty("_Accelerator", axis)
+        axis.start()
+
 
     # context = view.rootContext()
-    context = engine.rootContext()
     context.setContextProperty("_CpuUsage", cpu)
     context.setContextProperty("_Cputemperature", cputem)
     context.setContextProperty("_RamUsage", arm)
     context.setContextProperty("_StorageUsage", Storage)
-    context.setContextProperty("_Accelerator", axis)
     context.setContextProperty("_Systeminfo", sysinfo)
-    context.setContextProperty("_LedsKey", ledkey)
-    context.setContextProperty("_TouchPanel", touchpanel)
-
     context.setContextProperty("_Settting", seting)
-
-
 
     cpu.start()
     cputem.start()
     arm.start()
     Storage.start()
-    axis.start()
-    ledkey.start()
-    touchpanel.start()
     sysinfo.start()
 
     # view.setSource(url)
